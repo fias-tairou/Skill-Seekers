@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soccer Quiz Landing Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./styles/styles.css">
+</head>
+
+<body>
+
+    <header>
+        <img src="assets/logo.png" alt="foto niet beschikbaar">
+        <nav>
+            <ul>
+                <li><a href="">home</a></li>
+                <li><a href="">quiz</a></li>
+                <li><a href="">favorieten</a></li>
+                <li><a href="blackitsed-pagina.html">blacklisted</a></li>
+                <li><a href="contact.html">contact</a></li>
+            </ul>
+        </nav>
+
+    </header>
+
+    <main class="main text-center my-0 py-5">
+        <h1 class="quiz-header__title mb-4">Test je voetbalkennis</h1>
+        <section class="difficulty-section text-center py-1">
+            <form class="form-group mx-auto" style="max-width: 300px;">
+                <label for="difficulty" class="difficulty-section__title mb-4">Kies je niveau:</label>
+                <select id="difficulty" class="form-control">
+                    <option value="beginner">Beginner</option>
+                    <option value="intermediate">Gevorderd</option>
+                    <option value="expert">Expert</option>
+                </select>
+            </form>
+            <button id="startButton" class="btn btn-primary btn-lg">Start Quiz</button>
+
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy;2024 SkillSeekers @copyright</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
