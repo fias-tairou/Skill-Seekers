@@ -1,0 +1,28 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/typescript-node
+{
+	"name": "Node.js & TypeScript",
+	
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "mcr.microsoft.com/devcontainers/typescript-node:1-20-bullseye",
+	
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	"features": {
+		"ghcr.io/devcontainers-contrib/features/ts-node:1": {}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"xabikos.JavaScriptSnippets",
+				"ritwickdey.LiveServer",
+				"pranaygp.vscode-css-peek",
+				"formulahendry.auto-rename-tag",
+				"christian-kohler.path-intellisense",
+				"aaron-bond.better-comments",
+				"eamodio.gitlens"
+			]
+		}
+	},
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": "npm i -g -D nodemon"
+}
