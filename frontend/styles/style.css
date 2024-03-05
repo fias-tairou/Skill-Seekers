@@ -140,10 +140,12 @@ main{
 /*footer*/
 footer{
     display: flex;
-    background-color: lightgrey;
-    height: 70px;
+    color: #f7c704;
+    background-color: black;
+    height: 40px;
     justify-content: center;
     align-items: center;
+    z-index: 1;
 }
 
 @media screen and (max-width:576px) {
