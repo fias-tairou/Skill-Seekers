@@ -77,6 +77,15 @@
             window.location = "./quiz-landing-page.html"
         })
 
+        window.onload
+        if (localStorage.getItem("login")){
+            window.location = "./quiz.html"
+        }else{
+            window.location = "./login.html"
+        }
+    </script>
+
+        
     </script>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

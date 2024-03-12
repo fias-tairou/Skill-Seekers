@@ -34,4 +34,13 @@
     </main>
 
     <footer class="footer mt-auto py-3">&copy; Skill Seekers </footer>
+
+
+    <script>
+        if (localStorage.getItem("login") && window.location != "./quiz.html"){
+            window.location = "./quiz.html"
+        }else{
+            window.location = "./login.html"
+        }
+    </script>
 </body>
