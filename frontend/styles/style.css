@@ -21,8 +21,6 @@ body{
 }
 
 
-/* QUIZ LANDING PAGE */
-
 body {
     font-family: Arial, sans-serif;
   }
@@ -50,7 +48,6 @@ body {
 }
 
 
-
 .difficulty-section {
     text-align: center;
     margin-top: 50px;
@@ -70,7 +67,7 @@ body {
 
 /* Quiz Page */
 .quiz-page {
-    background-color: var(--lapis-lazuli);
+    background-color: var(--lapis);
     font-family: Arial, sans-serif;
 }
 
