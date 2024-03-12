@@ -125,17 +125,16 @@ let questions = [
   ]
 
 
-function generateQuestion(index) {
+function loadImage(index) {
     
     let question = questions[index]
     let card_image = document.querySelector('quiz-card__image')
-
     card_image.setAttribute('src', question.image_url)
 
-
 }
 
-
-while (!lost) {
-
-}
+window.addEventListener("load", ()=>{
+    setTimeout(()=>{
+        loadImage(1)
+    },10000)
+})

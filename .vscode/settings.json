@@ -1,3 +1,4 @@
 {
-    "liveServer.settings.multiRootWorkspaceName": "Skill-Seekers"
+    "liveServer.settings.multiRootWorkspaceName": "Skill-Seekers",
+    "liveServer.settings.useLocalIp": false
 }
