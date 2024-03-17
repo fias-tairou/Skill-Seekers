@@ -1,12 +1,22 @@
 
+window.onload = play
+let currentQuestion
+let quitBtn
+let score
+let answers
+let card_image
+let clubEndpoint
+let leagueEndpoint
+let questions
+let questionCounter
+let card_title
+let buttonsContainer
+let dislikeBtn
+let likeBtn
 
-let questions = [
-    {
-        "answer": 18,
-        "name": "Spurs",
-        "options": ["West Ham", "Manchester Utd", "Leeds United", "Spurs"],
-        "image_url": "https://ssl.gstatic.com/onebox/media/sports/logos/k3Q_mKE98Dnohrcea0JFgQ_96x96.png"
-    },
+
+
+let clubQuestions = [
     {
         "answer": 1,
         "name": "Arsenal",
@@ -26,22 +36,10 @@ let questions = [
         "image_url": "https://example.com/aberdeen_image.jpg"
     },
     {
-        "answer": 14,
-        "name": "Nott'm Forest",
-        "options": ["Nott'm Forest", "Fulham", "QPR", "Middlesbrough"],
-        "image_url": "https://example.com/forest_image.jpg"
-    },
-    {
         "answer": 73,
         "name": "Paris SG",
         "options": ["Paris SG", "Leverkusen", "Milan", "Manchester City"],
         "image_url": "https://example.com/psg_image.jpg"
-    },
-    {
-        "answer": 91,
-        "name": "Derby County",
-        "options": ["Montpellier", "West Brom", "Derby County", "Birmingham City"],
-        "image_url": "https://example.com/derby_image.jpg"
     },
     {
         "answer": 25,
@@ -92,12 +90,6 @@ let questions = [
         "image_url": "https://example.com/hamburg_image.jpg"
     },
     {
-        "answer": 58,
-        "name": "SC Bastia",
-        "options": ["FC Metz", "Rangers", "SC Bastia", "FC Schalke 04"],
-        "image_url": "https://example.com/bastia_image.jpg"
-    },
-    {
         "answer": 110,
         "name": "Wolves",
         "options": ["Wolves", "Everton", "Manchester City", "Bolton"],
@@ -128,12 +120,6 @@ let questions = [
         "image_url": "https://example.com/koln_image.jpg"
     },
     {
-        "answer": 68,
-        "name": "FC Metz",
-        "options": ["FC Metz", "Tottenham", "Chelsea", "Manchester Utd"],
-        "image_url": "https://example.com/metz_image.jpg"
-    },
-    {
         "answer": 92,
         "name": "Grimsby Town",
         "options": ["Grimsby Town", "Aston Villa", "Everton", "West Brom"],
@@ -144,12 +130,6 @@ let questions = [
         "name": "AJ Auxerre",
         "options": ["Arsenal", "AJ Auxerre", "Fulham", "Leeds United"],
         "image_url": "https://example.com/auxerre_image.jpg"
-    },
-    {
-        "answer": 80,
-        "name": "Hearts",
-        "options": ["Leicester City", "Hearts", "Tottenham", "West Ham"],
-        "image_url": "https://example.com/hearts_image.jpg"
     },
     {
         "answer": 65,
@@ -169,52 +149,132 @@ let questions = [
         "options": ["FC Bayern München", "Tottenham", "Chelsea", "Liverpool"],
         "image_url": "https://example.com/bayern_image.jpg"
     },
+]
+
+let leagueQuestions = [
     {
-        "answer": 33,
-        "name": "1860 München",
-        "options": ["Tottenham", "Liverpool", "Manchester City", "1860 München"],
-        "image_url": "https://example.com/munchen_image.jpg"
+        "name": "Bundesliga",
+        "answer": 19,
+        "options": ["Serie A", "Premier League", "Bundesliga", "Ligue 1"],
+        "logo": "https://example.com/bundesliga_logo_colorful.png"
     },
     {
-        "answer": 143,
-        "name": "Exeter City",
-        "options": ["Exeter City", "West Ham", "Leeds United", "Chelsea"],
-        "image_url": "https://example.com/exeter_image.jpg"
+        "name": "Serie A",
+        "answer": 31,
+        "options": ["Bundesliga", "Serie A", "Premier League", "Ligue 1"],
+        "logo": "https://example.com/seriea_logo_colorful.png"
+    },
+    {
+        "name": "Ligue 1",
+        "answer": 16,
+        "options": ["Serie A", "Premier League", "Ligue 1", "Bundesliga"],
+        "logo": "https://example.com/ligue1_logo_colorful.png"
+    },
+    {
+        "name": "MLS",
+        "answer": 39,
+        "options": ["Serie A", "MLS", "Premier League", "Bundesliga"],
+        "logo": "https://example.com/mls_logo_colorful.png"
+    },
+    {
+        "name": "Scottish Women's League",
+        "answer": 2233,
+        "options": ["Scottish Women's League", "Barclays WSL", "Nederland Vrouwen Liga", "D1 Arkema"],
+        "logo": "https://example.com/scottish_womens_league_logo_colorful.png"
+    },
+    {
+        "name": "Calcio A Femminile",
+        "answer": 2236,
+        "options": ["Calcio A Femminile", "Liga Portugal Feminino", "Ceska Liga Žen", "Sverige Liga"],
+        "logo": "https://example.com/calcio_afemminile_logo_colorful.png"
+    },
+    {
+        "name": "3. Liga",
+        "answer": 2076,
+        "options": ["3. Liga", "Calcio B (ITA 2)", "National League (ENG 5)", "Liga Dimayor II"],
+        "logo": "https://example.com/3liga_logo_colorful.png"
+    },
+    {
+        "name": "Icons",
+        "answer": 2118,
+        "options": ["Icons", "Liga Cyprus", "Magyar Liga", "GPFBL"],
+        "logo": "https://example.com/icons_logo_colorful.png"
+    },
+
+    {
+        "name": "United Emirates League",
+        "answer": 2172,
+        "options": ["United Emirates League", "Liga Cyprus", "Magyar Liga", "GPFBL"],
+        "logo": "https://example.com/united_emirates_league_logo_colorful.png"
+    },
+    {
+        "name": "National League",
+        "answer": 2208,
+        "options": ["National League", "Liga Dimayor II", "Liga Cyprus", "Magyar Liga"],
+        "logo": "https://example.com/national_league_logo_colorful.png"
+    },
+    {
+        "name": "Liga Dimayor II",
+        "answer": 2209,
+        "options": ["Liga Dimayor II", "Liga Cyprus", "Magyar Liga", "GPFBL"],
+        "logo": "https://example.com/liga_dimayorii_logo_colorful.png"
     }
 ]
 
 
 
-function setupQuestion(quesstionNumber) {
-    let answers = document.getElementsByClassName("quiz-card__answer-btn")
-    let card_image = document.querySelector('.quiz-card__image')
-    let question = questions[quesstionNumber]
-    console.log("setting up");
-    getImageUrl(question.answer, card_image)
+function setupQuestion() {
+    buttonsContainer.style.display = 'none'
+    let iseven = questionCounter % 2 === 0
+    let endpointPrefix
+    if (iseven) {
+        currentQuestion = clubQuestions.shift()
+        endpointPrefix = clubEndpoint
+        card_title.innerHTML = "Welke ploeg is dit?"
+    } else {
+        currentQuestion = leagueQuestions.shift()
+        console.log(currentQuestion);
+        endpointPrefix = leagueEndpoint
+        card_title.innerHTML = "Welke league is dit?"
+
+    }
+
+
+    getImageUrl(currentQuestion.answer, endpointPrefix, card_image)
     for (let index = 0; index < answers.length; index++) {
         let answerbtn = answers[index]
-        answerbtn.innerHTML = question.options[index]
-        console.log(index);
-        answerbtn.addEventListener('click', function checkAnswer(e) {
+        answerbtn.innerHTML = currentQuestion.options[index]
+    }
 
-            if (e.target.innerHTML === question.name) {
-                setupQuestion(quesstionNumber + 1)
-                e.target.removeEventListener('click', checkAnswer)
+    questionCounter += 1
+}
+
+function setupButtons() {
+    answers = document.getElementsByClassName("quiz-card__answer-btn")
+    for (let index = 0; index < answers.length; index++) {
+        let answerbtn = answers[index]
+        answerbtn.addEventListener('click', function checkAnswer(e) {
+            if (e.target.innerHTML === currentQuestion.name) {
+                setupQuestion()
             } else {
                 console.log("wrong");
             }
-
         })
     }
+
+    buttonsContainer = document.getElementById("buttons-container");
+
+    dislikeBtn = document.getElementsByClassName('fa-thumbs-down')[0]
+    likeBtn = document.getElementsByClassName('fa-thumbs-up')[0]
 }
 
-function getImageUrl(clubId, imageContainer) {
+function getImageUrl(clubId, endpointPrefix, imgElement) {
     const api_key = "3be1d466-707b-4667-897e-5498cd656e95"
     let headers = {
         'accept': 'image/png',
         'X-AUTH-TOKEN': api_key
     }
-    const endpoint = `https://futdb.app/api/clubs/${clubId}/image`
+    const endpoint = `${endpointPrefix}/${clubId}/image`
     fetch(endpoint, {
         method: "GET",
         headers: headers
@@ -223,18 +283,59 @@ function getImageUrl(clubId, imageContainer) {
         return response.blob()
     }).then((blob) => {
         let iUrl = URL.createObjectURL(blob)
-        imageContainer.src = iUrl
+        imgElement.src = iUrl
     })
 }
 
-
-function play() {
-    setupQuestion(2)
+function redirectPage(path) {
+    window.location = path
 }
 
 
-window.addEventListener("load", () => {
 
-    play()
 
-})
+function play() {
+    quitBtn = document.querySelector('.quit-btn');
+    quitBtn.addEventListener('click', () => {
+        window.location = "./quiz-landing-page.html"
+    })
+    score = document.getElementsByClassName('')
+    answers = document.getElementsByClassName("quiz-card__answer-btn")
+    card_image = document.querySelector('.quiz-card__image')
+    clubEndpoint = "https://futdb.app/api/clubs"
+    leagueEndpoint = "https://futdb.app/api/leagues"
+    questionCounter = 0
+    card_title = document.querySelector('.quiz-card__title')
+    setupButtons()
+    setupQuestion(1)
+}
+
+
+
+
+function toggleButtons() {
+    buttonsContainer = document.getElementById("buttons-container");
+    buttonsContainer.style.display = (buttonsContainer.style.display === "block") ? "none" : "block";
+}
+
+function toggleLike() {
+    likeBtn.classList.toggle('fa-solid');
+    likeBtn.classList.toggle('fa-regular');
+
+    if (dislikeBtn.classList.contains('fa-solid')) {
+        dislikeBtn.classList.replace('fa-solid', 'fa-regular')
+    }
+    alert("liked");
+}
+
+function toggleDislike() {
+    
+    dislikeBtn.classList.toggle('fa-solid');
+    dislikeBtn.classList.toggle('fa-regular');
+
+    if (likeBtn.classList.contains('fa-solid')) {
+        likeBtn.classList.replace('fa-solid', 'fa-regular')
+    }
+    alert("blacklisted");
+
+}
