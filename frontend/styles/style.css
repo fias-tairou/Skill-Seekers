@@ -1,0 +1,89 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
+* {
+    font-family: Poppins, "sans-serif";
+}
+
+:root {
+    --lapis: #045694;
+    --royal-blue: #002864;
+    --alice-blue: #e4e8f0;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* QUIZ LANDING PAGE */
+body {
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+}
+
+.header {
+    text-align: center;
+    padding: 50px 0;
+}
+
+.header__title {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.header__message {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.header__start-button {
+    font-size: 1.2rem;
+}
+
+/* Quiz Page */
+.quiz-page {
+    background-color: var(--lapis);
+    font-family: Arial, sans-serif;
+}
+
+.quiz-card {
+    padding: 0%;
+}
+
+.quiz-card {
+    padding: 0%;
+    position: relative;
+    /* Ensure proper positioning for absolute elements */
+}
+
+.quiz-card__image:hover {
+    transform: scale(1.08); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+.quiz-card__like-btn,
+.quiz-card__dislike-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    transform: translateY(-10%);
+}
+
+
+.quiz-card__dislike-btn {
+    top: 102%;
+    /* Position at 50% from the top */
+
+}
+
+.quiz-card__like-btn {
+    right: 60px;
+}
+
+.quiz-card__dislike-btn {
+    left: 60px;
+    /* Position to the left of the image */
+}
