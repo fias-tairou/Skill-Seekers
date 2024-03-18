@@ -225,6 +225,8 @@ let leagueQuestions = [
 
 function setupQuestion() {
     buttonsContainer.style.display = 'none'
+    dislikeBtn.classList.replace('fa-solid', 'fa-regular')
+    likeBtn.classList.replace('fa-solid', 'fa-regular')
     let iseven = questionCounter % 2 === 0
     let endpointPrefix
     if (iseven) {
@@ -236,7 +238,6 @@ function setupQuestion() {
         console.log(currentQuestion);
         endpointPrefix = leagueEndpoint
         card_title.innerHTML = "Welke league is dit?"
-
     }
 
 
@@ -261,9 +262,7 @@ function setupButtons() {
             }
         })
     }
-
     buttonsContainer = document.getElementById("buttons-container");
-
     dislikeBtn = document.getElementsByClassName('fa-thumbs-down')[0]
     likeBtn = document.getElementsByClassName('fa-thumbs-up')[0]
 }
