@@ -1,20 +1,21 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
 
-*{
+* {
     font-family: Poppins, "sans-serif";
 }
 
-html, body{
+html,
+body {
     min-height: 100vh;
 
-    }
+}
 
-body{
+body {
     display: flex;
     flex-direction: column;
 }
 
-:root{
+:root {
     --lapis: #045694;
     --royal-blue: #002864;
     --alice-blue: #e4e8f0;
@@ -23,10 +24,56 @@ body{
 
 body {
     font-family: Arial, sans-serif;
-  }
+}
+
+/* CSS RESET */
+html,
+body {
+    height: 100%;
+}
 
 /* QUIZ LANDING PAGE */
+body {
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+}
 
+.header {
+    text-align: center;
+    padding: 50px 0;
+}
+
+.header__title {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.header__message {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.header__start-button {
+    font-size: 1.2rem;
+}
+
+.difficulty-section {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.difficulty-section__title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.difficulty-section__select-container {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+/* QUIZ LANDING PAGE */
 .quiz-header {
     text-align: center;
     padding: 50px 0;
@@ -35,7 +82,6 @@ body {
         font-size: 2.5rem;
         margin-bottom: 20px;
     }
-
 
     &__message {
         font-size: 1.2rem;
@@ -71,7 +117,7 @@ body {
     font-family: Arial, sans-serif;
 }
 
-.quiz-card{
+.quiz-card {
     padding: 0%;
 }
 
@@ -87,13 +133,13 @@ header {
     height: 90px;
     display: flex;
     align-items: center;
-    padding: 0 1.4rem;
+    padding: 1.4rem;
     background-color: var(--lapis);
     justify-content: space-between;
 }
 
 
-.searchbar{
+.searchbar {
     background-color: white;
     text-align: center;
     border-radius: 15px;
@@ -163,13 +209,13 @@ nav {
     margin-right: auto;
 }
 
-.project--container{
+.project--container {
     position: relative;
     text-align: center;
 }
 
-.project--no-acces{
-    position: absolute; 
+.project--no-acces {
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -179,14 +225,14 @@ nav {
     opacity: 0.1;
 }
 
-.landing-page-main{
+.landing-page-main {
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin-bottom: 50px;
 }
 
-.landing-page-body{
+.landing-page-body {
     background-color: var(--alice-blue);
 }
 
@@ -196,11 +242,11 @@ nav {
     color: white;
 }
 
-.project img{
+.project img {
     width: 150px;
 }
 
-.project{
+.project {
     display: flex;
     width: 210px;
     height: 210px;
@@ -211,35 +257,36 @@ nav {
     border-radius: .625rem;
 }
 
-.project img:hover{
+.project img:hover {
     transform: scale(1.1);
 }
 
-.project img{
+.project img {
     transition: transform 200ms ease-in-out;
 }
 
 /*login page*/
-.login--form{
+.login--form {
     display: flex;
     flex-direction: column;
 }
 
-.login--form > h5{
+.login--form>h5 {
     margin-top: 50px;
 }
 
-.login--title, .register--title{
+.login--title,
+.register--title {
     margin-top: 80px;
     margin-bottom: 80px;
     text-align: center;
     font-size: 50px;
 }
 
-.login--btn{
+.login--btn {
     font-size: 0.9rem;
     font-weight: 300;
-    padding: 0.5rem ;
+    padding: 0.5rem;
     background-color: var(--lapis);
     border-radius: 5rem;
     text-align: center;
@@ -247,10 +294,10 @@ nav {
     color: white; 
 }
 
-.sign-up--btn{
+.sign-up--btn {
     font-size: 0.9rem;
     font-weight: 400;
-    padding: 0.5rem ;
+    padding: 0.5rem;
     background-color: var(--lapis);
     color: white;
     border-radius: 5rem;
@@ -258,10 +305,10 @@ nav {
     width: 100%;
 }
 
-.make-account--btn{
+.make-account--btn {
     font-size: 0.9rem;
     font-weight: 300;
-    padding: 0.5rem ;
+    padding: 0.5rem;
     background-color: var(--alice-blue);
     color: black;
     border-radius: 5rem;
@@ -271,10 +318,10 @@ nav {
     text-decoration: none;
 }
 
-.reset--pass--btn{
+.reset--pass--btn {
     font-size: 0.9rem;
     font-weight: 400;
-    padding: 0.5rem ;
+    padding: 0.5rem;
     background-color: var(--lapis);
     color: white;
     border-radius: 5rem;
@@ -282,17 +329,22 @@ nav {
     width: 100%;
 }
 
-.reset--pass--link{
+.reset--pass--link {
     text-decoration: none;
     color: #045694;
     margin-top: 20px;
 }
 
-.reset--pass--link:hover{
+.reset--pass--link:hover {
     text-decoration: underline;
 }
 
-#loginEmail, #loginPassword, #signupEmail, #signupPassword, #signupPasswordRepeat, #resetEmail{
+#loginEmail,
+#loginPassword,
+#signupEmail,
+#signupPassword,
+#signupPasswordRepeat,
+#resetEmail {
     border-bottom: 1px solid grey;
 
 }
@@ -308,6 +360,8 @@ footer {
     align-items: center;
     width: 100%;
     margin-top: auto;
+    padding: 1rem;
+
 }
 
 @media screen and (max-width:576px) {
