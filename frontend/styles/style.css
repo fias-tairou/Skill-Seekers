@@ -122,10 +122,34 @@ body {
 }
 
 .quiz-card {
+    
     padding: 0%;
     position: relative;
     /* Ensure proper positioning for absolute elements */
+    
+    
 }
+.quiz-card__body {
+    display: grid;
+}
+
+
+.quiz-card__layer {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.quiz-card__layer {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 250ms ease-in, visibility 0ms ease-in 250ms;
+  }
+  
+  .quiz-card__layer.show {
+    display: inline;
+    visibility: visible;
+    opacity: 1;
+  }
 
 
 

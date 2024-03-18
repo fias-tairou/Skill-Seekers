@@ -3,16 +3,17 @@ window.onload = play
 let currentQuestion
 let quitBtn
 let score
-let answers
+let answerButtons
 let card_image
 let clubEndpoint
 let leagueEndpoint
-let questions
-let questionCounter
+let questionCounter = 0
 let card_title
 let buttonsContainer
 let dislikeBtn
 let likeBtn
+let startBtn
+let layers
 
 
 
@@ -151,6 +152,7 @@ let clubQuestions = [
     },
 ]
 
+
 let leagueQuestions = [
     {
         "name": "Bundesliga",
@@ -242,8 +244,8 @@ function setupQuestion() {
 
 
     getImageUrl(currentQuestion.answer, endpointPrefix, card_image)
-    for (let index = 0; index < answers.length; index++) {
-        let answerbtn = answers[index]
+    for (let index = 0; index < answerButtons.length; index++) {
+        let answerbtn = answerButtons[index]
         answerbtn.innerHTML = currentQuestion.options[index]
     }
 
@@ -251,9 +253,9 @@ function setupQuestion() {
 }
 
 function setupButtons() {
-    answers = document.getElementsByClassName("quiz-card__answer-btn")
-    for (let index = 0; index < answers.length; index++) {
-        let answerbtn = answers[index]
+    answerButtons = document.getElementsByClassName("quiz-card__answer-btn")
+    for (let index = 0; index < answerButtons.length; index++) {
+        let answerbtn = answerButtons[index]
         answerbtn.addEventListener('click', function checkAnswer(e) {
             if (e.target.innerHTML === currentQuestion.name) {
                 setupQuestion()
@@ -265,7 +267,20 @@ function setupButtons() {
     buttonsContainer = document.getElementById("buttons-container");
     dislikeBtn = document.getElementsByClassName('fa-thumbs-down')[0]
     likeBtn = document.getElementsByClassName('fa-thumbs-up')[0]
+    setupStartbutton()
 }
+
+function setupStartbutton() {
+    startBtn = document.getElementById('start-btn')
+    startBtn.addEventListener('click', () => {
+        console.log(startBtn.innerHTML)
+        layers = document.getElementsByClassName('quiz-card__layer')
+        layers[0].classList.toggle("show")
+        layers[1].classList.toggle("show")
+    })
+}
+
+
 
 function getImageUrl(clubId, endpointPrefix, imgElement) {
     const api_key = "3be1d466-707b-4667-897e-5498cd656e95"
@@ -293,21 +308,7 @@ function redirectPage(path) {
 
 
 
-function play() {
-    quitBtn = document.querySelector('.quit-btn');
-    quitBtn.addEventListener('click', () => {
-        window.location = "./quiz-landing-page.html"
-    })
-    score = document.getElementsByClassName('')
-    answers = document.getElementsByClassName("quiz-card__answer-btn")
-    card_image = document.querySelector('.quiz-card__image')
-    clubEndpoint = "https://futdb.app/api/clubs"
-    leagueEndpoint = "https://futdb.app/api/leagues"
-    questionCounter = 0
-    card_title = document.querySelector('.quiz-card__title')
-    setupButtons()
-    setupQuestion(1)
-}
+
 
 
 
@@ -328,7 +329,6 @@ function toggleLike() {
 }
 
 function toggleDislike() {
-    
     dislikeBtn.classList.toggle('fa-solid');
     dislikeBtn.classList.toggle('fa-regular');
 
@@ -337,4 +337,24 @@ function toggleDislike() {
     }
     alert("blacklisted");
 
+}
+
+
+
+
+function play() {
+    quitBtn = document.querySelector('.quit-btn');
+    quitBtn.addEventListener('click', () => {
+        window.location = "./quiz-landing-page.html"
+    })
+    score = document.getElementsByClassName('')
+    answerButtons = document.getElementsByClassName("quiz-card__answer-btn")
+    card_image = document.querySelector('.quiz-card__image')
+    card_title = document.querySelector('.quiz-card__title')
+
+    clubEndpoint = "https://futdb.app/api/clubs"
+    leagueEndpoint = "https://futdb.app/api/leagues"
+
+    setupButtons()
+    setupQuestion(1)
 }
