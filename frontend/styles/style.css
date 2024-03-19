@@ -26,7 +26,6 @@ body {
     font-family: Arial, sans-serif;
 }
 
-/* CSS RESET */
 
 
 
@@ -38,13 +37,14 @@ body {
 }
 
 .quiz-card {
-    
+
     padding: 0%;
     position: relative;
     /* Ensure proper positioning for absolute elements */
-    
-    
+
+
 }
+
 .quiz-card__body {
     display: grid;
     align-items: center;
@@ -60,18 +60,17 @@ body {
     visibility: hidden;
     opacity: 0;
     transition: opacity 250ms ease-in, visibility 0ms ease-in 250ms;
-  }
-  
-  .quiz-card__layer.show {
+}
+
+.quiz-card__layer.show {
     display: inline;
     visibility: visible;
     opacity: 1;
-  }
+}
 
 
 
 .quiz-card__image {
-
     transition: transform .2s;
     /* Animation */
 
@@ -111,8 +110,8 @@ body {
 
 
 
-/*header*/
-header {
+/*Headers */
+.landing-page-header {
     width: 100%;
     height: 90px;
     display: flex;
@@ -122,8 +121,54 @@ header {
     justify-content: space-between;
 }
 
+/*Headers */
+.website-header {
+    width: 100%;
+    height: 90px;
+    align-items: center;
+    padding: 1.4rem;
+    background-color: var(--lapis);
+}
+
+.website-header li {
+    display: inline-block;
+    vertical-align: top; 
 
 }
+
+.website-header__link {
+    display: block;
+
+}
+
+
+.website-header .account--btn {
+    text-decoration: none;
+}
+.website-header__link {
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.website-header .website-header__link:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.website-header .split {
+    float: right;
+    color: white;
+}
+
+.website-header__logo{
+    position: relative;
+    margin: auto;
+    
+}
+
 
 /*landing page*/
 

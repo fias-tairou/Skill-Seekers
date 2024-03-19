@@ -1,5 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
 
+:root {
+    --lapis: #045694;
+    --royal-blue: #002864;
+    --alice-blue: #e4e8f0;
+}
+
+
 *{
     font-family: Poppins, "sans-serif";
 }
@@ -12,6 +19,71 @@ img{
     width: 150px;
 }
 
+/*Landing pagina NAvbar Headers */
+/*Headers */
+.landing-page-header {
+    width: 100%;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    padding: 1.4rem;
+    background-color: var(--lapis);
+    justify-content: space-between;
+}
+
+/*Headers */
+.website-header {
+    width: 100%;
+    height: 90px;
+    align-items: center;
+    padding: 1.4rem;
+    background-color: var(--lapis);
+}
+
+.website-header li {
+    display: inline-block;
+    vertical-align: top; 
+
+}
+
+.website-header__link {
+    display: block;
+
+}
+
+
+.website-header .account--btn {
+    text-decoration: none;
+}
+.website-header__link {
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.website-header .website-header__link:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.website-header .split {
+    float: right;
+    color: white;
+}
+
+.website-header__logo{
+    position: relative;
+    margin: auto;
+    
+}
+
+
+
+
+
+/* Blacklisted */
 .blackitsed-pagina-main{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -116,4 +188,18 @@ footer#footer-contacten{
     bottom: 0;
     width: 100%;
     margin-top: auto;
+}
+
+/*footer*/
+footer {
+    display: flex;
+    color: white;
+    background-color: var(--royal-blue);
+    height: 60px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: auto;
+    padding: 1rem;
+
 }

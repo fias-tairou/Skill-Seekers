@@ -24,19 +24,25 @@
     <title>League info section</title>
 </head>
 <body>
-    <header>
-        <a href="index.html"> <img src="assets/logo-landing.jpeg" alt="foto niet beschikbaar" >  </a>
-         <nav>
-             <ul>
-                 <li><a href="index.html">home</a></li>
-                 <li><a href="quiz-landing-page.html">quiz</a></li>
-                 <li><a href="favorieten.html">favorieten</a></li>
-                 <li><a href="blackitsed-pagina.html">blacklisted</a></li>
-                 <li><a href="index2.html">projecten</a></li>
-                 <li><a href="contact.html">contact</a></li>
-             </ul>
-         </nav>
-     </header>
+    <header class="website-header">
+        <nav>
+          <ul>
+            <li><a href="index.html"><img src="assets/logo-landing.jpeg" height="30px" class="website-header__logo"></a></li>
+            <li><a class="website-header__link" href="home.html">Home</a></li>
+            <li><a class="website-header__link" href="favorieten.html">Favorieten</a></li>
+            <li><a class="website-header__link" href="blackitsed-pagina.html" class="">Blacklist</a></li>
+            <li><a class="website-header__link" href="contact.html" class="">Contact</a></li>
+            <li class="search--login--section split">
+              <span class="profile-name">Malik</span>
+              <button class="user--btn"><a href="login.html" class="account--btn"><img src="assets/user.png" alt="login icon"
+                    width="40px"></a></button>
+            </li>
+          </ul>
+          
+          
+        </nav>
+        <script src="scripts/landing-page.js" defer></script>
+      </header>
     <h1 class="titel display-3">Favoriete League</h1>
     <main class="main-info-section">
         <figure class="figure-infoSection">
@@ -62,8 +68,7 @@
     </main>
     
    
-    <footer id="footer-contacten">
-        <p>&copy;2024 SkillSeekers @copyright</p>
-    </footer>
+  <footer>&copy; FIFA 2024 </footer>
+    
 </body>
 </html>
