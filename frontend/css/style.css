@@ -26,6 +26,55 @@ body {
     font-family: Arial, sans-serif;
 }
 
+/* FIFA HOME PAGINA */
+.options-container {
+    margin-top: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0 20px;
+    /* Voeg witruimte toe aan de zijkanten */
+  }
+
+  .option-card {
+    flex: 1;
+    /* Dynamische breedte met marge */
+    padding: 20vh;
+    margin-right: 20px;
+    /* Marge tussen kaarten */
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .option-card:last-child {
+    margin-right: 0;
+    /* Geen marge aan de rechterkant voor de laatste kaart */
+  }
+
+  .option-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
+  }
+
+  @media screen and (max-width:576px) {
+    .option-card {
+      margin: 20px auto;
+      border-color: black;
+    }
+  }
+
+  @media screen and (max-width:768px) {
+
+    .option-card {
+      margin: 20px auto;
+      border-color: black;
+    }
+  }
 
 
 
