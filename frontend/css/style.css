@@ -1,5 +1,20 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
 
+* {
+    font-family: Poppins, "sans-serif";
+}
+
+html,
+body {
+    min-height: 100vh;
+
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
 :root {
     --lapis: #045694;
     --royal-blue: #002864;
@@ -7,17 +22,94 @@
 }
 
 
-*{
-    font-family: Poppins, "sans-serif";
-}
-
-.titel{
-    text-align: center;
+body {
+    font-family: Arial, sans-serif;
 }
 
 
 
-/*Landing pagina NAvbar Headers */
+
+
+/* Quiz Page */
+.quiz-page {
+    background-color: var(--lapis);
+    font-family: Arial, sans-serif;
+}
+
+.quiz-card {
+
+    padding: 0%;
+    position: relative;
+    /* Ensure proper positioning for absolute elements */
+
+
+}
+
+.quiz-card__body {
+    display: grid;
+    align-items: center;
+}
+
+
+.quiz-card__layer {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.quiz-card__layer {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 250ms ease-in, visibility 0ms ease-in 250ms;
+}
+
+.quiz-card__layer.show {
+    display: inline;
+    visibility: visible;
+    opacity: 1;
+}
+
+
+
+.quiz-card__image {
+    transition: transform .2s;
+    /* Animation */
+
+}
+
+.quiz-card__image:hover {
+    transform: scale(1.08);
+    cursor: pointer;
+}
+
+.quiz-card__like-btn,
+.quiz-card__dislike-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    transform: translateY(-10%);
+}
+
+
+.quiz-card__dislike-btn {
+    top: 102%;
+    /* Position at 50% from the top */
+
+}
+
+.quiz-card__like-btn {
+    right: 60px;
+}
+
+.quiz-card__dislike-btn {
+    left: 60px;
+}
+
+
+
 /*Headers */
 .landing-page-header {
     width: 100%;
@@ -78,16 +170,180 @@
 }
 
 
+/*landing page*/
 
+.projecten--title {
+    
+    margin-top: 80px;
+    margin-bottom: 80px;
+    text-align: center;
+    font-size: 50px;
+}
 
+.project h3 {
+    margin-top: 20px;
+}
 
-/* Blacklisted */
+.home-page-projects {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    column-gap: 120px;
+    row-gap: 50px;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.project--container {
+    position: relative;
+    text-align: center;
+}
+
+.project--no-acces {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#projectUnavailable img{
+    opacity: 0.1;
+}
+
+.landing-page-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+.landing-page-body {
+    background-color: var(--alice-blue);
+}
+
+.profile-name {
+    padding-left: 20px;
+    padding-right: 10px;
+    color: white;
+}
+
+.project img {
+    width: 150px;
+}
+
+.project {
+    display: flex;
+    width: 210px;
+    height: 210px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: white;
+    border-radius: .625rem;
+}
+
+.project img:hover {
+    transform: scale(1.1);
+}
+
+.project img {
+    transition: transform 200ms ease-in-out;
+}
+
+/*login page*/
+.login--form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login--form>h5 {
+    margin-top: 50px;
+}
+
+.login--title,
+.register--title {
+    margin-top: 80px;
+    margin-bottom: 80px;
+    text-align: center;
+    font-size: 50px;
+}
+
+.login--btn {
+    font-size: 0.9rem;
+    font-weight: 300;
+    padding: 0.5rem;
+    background-color: var(--lapis);
+    border-radius: 5rem;
+    text-align: center;
+    width: 100%;
+    color: white; 
+}
+
+.sign-up--btn {
+    font-size: 0.9rem;
+    font-weight: 400;
+    padding: 0.5rem;
+    background-color: var(--lapis);
+    color: white;
+    border-radius: 5rem;
+    text-align: center;
+    width: 100%;
+}
+
+.make-account--btn {
+    font-size: 0.9rem;
+    font-weight: 300;
+    padding: 0.5rem;
+    background-color: var(--alice-blue);
+    color: black;
+    border-radius: 5rem;
+    text-align: center;
+    width: 100%;
+    margin-top: 5px;
+    text-decoration: none;
+}
+
+.reset--pass--btn {
+    font-size: 0.9rem;
+    font-weight: 400;
+    padding: 0.5rem;
+    background-color: var(--lapis);
+    color: white;
+    border-radius: 5rem;
+    text-align: center;
+    width: 100%;
+}
+
+.reset--pass--link {
+    text-decoration: none;
+    color: #045694;
+    margin-top: 20px;
+}
+
+.reset--pass--link:hover {
+    text-decoration: underline;
+}
+
+#loginEmail,
+#loginPassword,
+#signupEmail,
+#signupPassword,
+#signupPasswordRepeat,
+#resetEmail {
+    border-bottom: 1px solid grey;
+
+}
+
+/*Blacklisted */
 .blackitsed-pagina-main{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 20px;
-    margin-top: 14vh;
-    margin-bottom: 14vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 100px;
+    
 }
 
 .verwijderKnop{
@@ -172,8 +428,6 @@ p{
     text-align: justify;
 }
 
-
-
 /*footer*/
 footer {
     display: flex;
@@ -186,4 +440,49 @@ footer {
     margin-top: auto;
     padding: 1rem;
 
+}
+
+@media screen and (max-width:576px) {
+    .header--logo {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+
+    .profile-name {
+        display: none;
+    }
+
+    .nav--links {
+        display: none;
+    }
+
+    .home-page-projects {
+        row-gap: 20px;
+    }
+
+    .project {
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .project img {
+        width: 100px;
+    }
+
+    .project h3 {
+        margin-left: 30px;
+    }
+
+    .projecten--title {
+        margin-top: 50px;
+        font-size: 45px;
+        margin-bottom: 20px;
+    }
+}
+
+@media screen and (max-width:768px) {
+    .nav--links {
+        display: none;
+    }
 }

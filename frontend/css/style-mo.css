@@ -1,0 +1,189 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
+:root {
+    --lapis: #045694;
+    --royal-blue: #002864;
+    --alice-blue: #e4e8f0;
+}
+
+
+*{
+    font-family: Poppins, "sans-serif";
+}
+
+.titel{
+    text-align: center;
+}
+
+
+
+/*Landing pagina NAvbar Headers */
+/*Headers */
+.landing-page-header {
+    width: 100%;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    padding: 1.4rem;
+    background-color: var(--lapis);
+    justify-content: space-between;
+}
+
+/*Headers */
+.website-header {
+    width: 100%;
+    height: 90px;
+    align-items: center;
+    padding: 1.4rem;
+    background-color: var(--lapis);
+}
+
+.website-header li {
+    display: inline-block;
+    vertical-align: top; 
+
+}
+
+.website-header__link {
+    display: block;
+
+}
+
+
+.website-header .account--btn {
+    text-decoration: none;
+}
+.website-header__link {
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.website-header .website-header__link:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.website-header .split {
+    float: right;
+    color: white;
+}
+
+.website-header__logo{
+    position: relative;
+    margin: auto;
+    
+}
+
+
+
+
+
+/* Blacklisted */
+.blackitsed-pagina-main{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 20px;
+    margin-top: 14vh;
+    margin-bottom: 14vh;
+}
+
+.verwijderKnop{
+    width: 20px;
+}
+
+main#main-favorieten{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 14vh;
+    margin-bottom: 14vh;
+}
+
+img.foto-favorieten{
+    height: auto;
+    width: 300px;
+}
+
+figcaption#naam-afbeelding{
+    font-size: xx-large;
+    margin: 15px;
+}
+
+
+.main-info-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.figure-infoSection {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 20px;
+    margin-top: 14vh;
+    margin-bottom: 14vh;
+}
+
+.figure-img {
+    width: 200px;
+    margin: 70px;
+}
+
+.figcaption-infoSection {
+    max-width: 300px;
+    text-align: justify;
+}
+
+figure{
+    text-align: center;
+}
+
+p{
+    text-align: center;
+}
+
+#map {
+    height: 200px;
+    max-width: 1000px;
+    margin: 0 auto;
+    margin-top: 50px;
+    margin-bottom: 80px;
+    z-index: -1;
+}
+
+.main-spelers{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    margin-top: 14vh;
+    margin-bottom: 14vh;
+}
+
+.spelers-img{
+    width: 250px;
+    height: auto;
+}
+
+.spelers-figcaption{
+    max-width: 300px;
+    text-align: justify;
+}
+
+
+
+/*footer*/
+footer {
+    display: flex;
+    color: white;
+    background-color: var(--royal-blue);
+    height: 60px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: auto;
+    padding: 1rem;
+
+}
