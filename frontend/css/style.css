@@ -27,6 +27,12 @@ body {
 }
 
 /* FIFA HOME PAGINA */
+.home-main{
+    background-image: url(https://images5.alphacoders.com/133/thumb-1920-1338700.png);
+    background-repeat:no-repeat;
+    background-size: cover;
+}
+
 .options-container {
     margin-top: 50px;
     display: flex;
@@ -37,6 +43,7 @@ body {
   }
 
   .option-card {
+    background-color: rgba(255, 255, 255, 0.769);
     flex: 1;
     /* Dynamische breedte met marge */
     padding: 20vh;
@@ -80,13 +87,19 @@ body {
 
 
 /* Quiz Page */
+.quiz-cardlayer{
+    background-color: rgba(240, 248, 255, 0.721);
+}
+
 .quiz-page {
-    background-color: var(--lapis);
+    background-image: url(https://wallpapers.com/images/featured/cool-soccer-xx9ly9v0yostbag2.jpg);
+    background-size:cover;
+    background-repeat: no-repeat;
     font-family: Arial, sans-serif;
 }
 
 .quiz-card {
-
+    background-color: rgba(240, 248, 255, 0.719);
     padding: 0%;
     position: relative;
     /* Ensure proper positioning for absolute elements */
@@ -98,7 +111,6 @@ body {
     display: grid;
     align-items: center;
 }
-
 
 .quiz-card__layer {
     grid-column: 1;
@@ -172,6 +184,8 @@ body {
 
 /*Headers */
 .website-header {
+    display: flex;
+    justify-content: space-between;
     width: 100%;
     height: 90px;
     align-items: center;
@@ -179,10 +193,9 @@ body {
     background-color: var(--lapis);
 }
 
-.website-header li {
-    display: inline-block;
-    vertical-align: top; 
-
+.website-header ul{
+    display: flex;
+    margin-top: 10px;
 }
 
 .website-header__link {
@@ -234,6 +247,7 @@ body {
 }
 
 .home-page-projects {
+    margin-top: 10%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -386,9 +400,45 @@ body {
 
 }
 
+/*favorites*/
+.fav-container {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: 100px;
+    margin-bottom: 50px;
+  }
+
+  .fav-card {
+    flex: 1;
+    /* Dynamische breedte met marge */
+    padding: 7vh;
+    margin-right: 80px;
+    margin-left: 80px;
+    /* Marge tussen kaarten */
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-size: cover;
+    background-position: center;
+  }
+
 /*Blacklisted */
 .input-blacklist{
     border: black solid 1px;
+}
+
+.blacklist-section{
+    margin-left: 100px;
+    margin-right: 100px;
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 100px;
 }
 
 .blackitsed-pagina-main{
@@ -537,10 +587,26 @@ footer {
         font-size: 45px;
         margin-bottom: 20px;
     }
+    .option-card{
+        padding: 5vh;
+    }
+
+    .options-container{
+        row-gap: 30px;
+       }
 }
 
-@media screen and (max-width:768px) {
-    .nav--links {
+@media screen and (max-width: 990px) {
+    nav {
         display: none;
     }
+    .options-container{
+        row-gap: 30px;
+       }
+}
+
+@media screen and (max-width: 1542px) {
+   .options-container{
+    row-gap: 100px;
+   }
 }

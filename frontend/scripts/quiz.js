@@ -13,6 +13,7 @@ let dislikeBtn
 let likeBtn
 let startBtn
 let layers
+let reasonBtn
 
 
 let clubQuestions = [
@@ -252,11 +253,19 @@ function setupQuestion() {
 
 function setupButtons() {
     answerButtons = document.getElementsByClassName("quiz-card__answer-btn")
+
+    reasonBtn = document.getElementById('reason-btn')
+    reasonBtn.addEventListener('click', ()=>{
+        layers = document.getElementsByClassName('quiz-card__layer')
+        layers[2].classList.toggle("show")
+        layers[0].classList.toggle("show")
+    })
     for (let index = 0; index < answerButtons.length; index++) {
         let answerbtn = answerButtons[index]
         answerbtn.addEventListener('click', function checkAnswer(e) {
             if (e.target.innerHTML === currentQuestion.name) {
                 setupQuestion()
+                score.innerHTML+=1
             } else {
                 console.log("wrong");
             }
@@ -273,8 +282,10 @@ function setupStartbutton() {
     startBtn.addEventListener('click', () => {
         console.log(startBtn.innerHTML)
         layers = document.getElementsByClassName('quiz-card__layer')
-        layers[0].classList.toggle("show")
+        layers = document.getElementsByClassName('quiz-card__layer')
         layers[1].classList.toggle("show")
+        layers[0].classList.toggle("show")
+       
     })
 }
 
@@ -323,7 +334,6 @@ function toggleLike() {
     if (dislikeBtn.classList.contains('fa-solid')) {
         dislikeBtn.classList.replace('fa-solid', 'fa-regular')
     }
-    alert("liked");
 }
 
 function toggleDislike() {
@@ -333,15 +343,19 @@ function toggleDislike() {
     if (likeBtn.classList.contains('fa-solid')) {
         likeBtn.classList.replace('fa-solid', 'fa-regular')
     }
-    alert("blacklisted");
 
+    if (dislikeBtn.classList.contains('fa-solid')) {
+        layers = document.getElementsByClassName('quiz-card__layer')
+        layers[2].classList.toggle("show")
+        layers[0].classList.toggle("show")
+    }
 }
 
 
 
 
 function play() {
-    score = document.getElementsByClassName('')
+    score = document.getElementsByClassName('player-score')
     answerButtons = document.getElementsByClassName("quiz-card__answer-btn")
     card_image = document.querySelector('.quiz-card__image')
     card_title = document.querySelector('.quiz-card__title')
