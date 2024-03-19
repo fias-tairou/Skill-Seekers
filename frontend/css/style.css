@@ -4,42 +4,6 @@
     font-family: Poppins, "sans-serif";
 }
 
-header{
-    background-color: #045694;
-    color: white;
-    display: flex;
-    align-items: center;
-}
-header nav{
-    display: flex;
-    text-decoration: none;
-    align-items: center;
-    transition: transform 0.3s ease;    
-}
-
-header nav ul{
-    display: flex;
-    align-items: center;
-} 
-
-header nav ul li {
-    display: flex;
-    margin-right: 20px;
-    flex-direction: column;
-}
-
-header nav ul li a {
-    text-decoration: none;
-    color: white;
-
-}
-
-
-header img{
-    height: 30px;
-    width: auto;
-}
-
 .titel{
     text-align: center;
 }
@@ -151,4 +115,5 @@ footer#footer-contacten{
     left: 0;
     bottom: 0;
     width: 100%;
+    margin-top: auto;
 }
