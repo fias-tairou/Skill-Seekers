@@ -1,7 +1,6 @@
 
 window.onload = play
 let currentQuestion
-let quitBtn
 let score
 let answerButtons
 let card_image
@@ -14,7 +13,6 @@ let dislikeBtn
 let likeBtn
 let startBtn
 let layers
-
 
 
 let clubQuestions = [
@@ -343,10 +341,6 @@ function toggleDislike() {
 
 
 function play() {
-    quitBtn = document.querySelector('.quit-btn');
-    quitBtn.addEventListener('click', () => {
-        window.location = "./quiz-landing-page.html"
-    })
     score = document.getElementsByClassName('')
     answerButtons = document.getElementsByClassName("quiz-card__answer-btn")
     card_image = document.querySelector('.quiz-card__image')
