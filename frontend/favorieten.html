@@ -3,40 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>favorieten</title>
 </head>
 <body>
-    <header>
-        <img src="assets/images/logo.png" alt="foto niet beschikbaar">  
+    <header class="website-header">
         <nav>
-            <ul>
-                <li><a href="index.html">home</a></li>
-                <li><a href="quiz-landing-page.html">quiz</a></li>
-                <li><a href="favorieten.html">favorieten</a></li>
-                <li><a href="blackitsed-pagina.html">blacklisted</a></li>
-                <li><a href="contact.html">contact</a></li>
-            </ul>
+          <ul>
+            <li><a href="index.html"><img src="assets/logo-landing.jpeg" height="30px" class="website-header__logo"></a></li>
+            <li><a class="website-header__link" href="home.html">Home</a></li>
+            <li><a class="website-header__link" href="favorieten.html">Favorieten</a></li>
+            <li><a class="website-header__link" href="blackitsed-pagina.html" class="">Blacklist</a></li>
+            <li><a class="website-header__link" href="contact.html" class="">Contact</a></li>
+            <li class="search--login--section split">
+              <span class="profile-name">Malik</span>
+              <button class="user--btn"><a href="login.html" class="account--btn"><img src="assets/user.png" alt="login icon"
+                    width="40px"></a></button>
+            </li>
+          </ul>
+          
+          
         </nav>
-    </header>
-    <h1>Favorieten</h1>
+        <script src="scripts/landing-page.js" defer></script>
+      </header>
+    <h1 class="titel display-3">Favorieten</h1>
     <main id="main-favorieten">
         <figure>
-            <figcaption id="naam-afbeelding">Club info section</figcaption>
-            <img class="foto-favorieten" src="https://picsum.photos/80"alt="foto niet beschikbaar" />
+            <figcaption id="naam-afbeelding">Favoriete Club</figcaption>
+            <a href="favoriete-club.html"><img class="foto-favorieten" src="https://picsum.photos/80"alt="foto niet beschikbaar" /></a> 
         </figure>
     
         <figure>
-            <figcaption id="naam-afbeelding">League info section</figcaption>
-            <img class="foto-favorieten" src="https://picsum.photos/80"alt="foto niet beschikbaar" />
+            <figcaption id="naam-afbeelding">Favoriete League</figcaption>
+            <a href="favoriete-league.html"><img class="foto-favorieten" src="https://picsum.photos/80"alt="foto niet beschikbaar" /></a>
         </figure>
     </main>
     
+    <footer>&copy; FIFA 2024 </footer>
 
-    <footer>
-        <p>&copy;2024 SkillSeekers @copyright</p>
-    </footer>
 </body>
 </html>
