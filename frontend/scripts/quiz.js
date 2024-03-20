@@ -1,7 +1,8 @@
 
 window.onload = play
 let currentQuestion
-let score
+let displayScore
+let score = 0
 let answerButtons
 let card_image
 let clubEndpoint
@@ -255,17 +256,23 @@ function setupButtons() {
     answerButtons = document.getElementsByClassName("quiz-card__answer-btn")
 
     reasonBtn = document.getElementById('reason-btn')
-    reasonBtn.addEventListener('click', ()=>{
+    reasonBtn.addEventListener('click', () => {
         layers = document.getElementsByClassName('quiz-card__layer')
         layers[2].classList.toggle("show")
         layers[0].classList.toggle("show")
     })
+
     for (let index = 0; index < answerButtons.length; index++) {
         let answerbtn = answerButtons[index]
         answerbtn.addEventListener('click', function checkAnswer(e) {
             if (e.target.innerHTML === currentQuestion.name) {
                 setupQuestion()
-                score.innerHTML+=1
+                score += 100
+                displayScore = document.getElementById('player-score')
+                console.log(displayScore);
+                
+                displayScore.innerText = score
+
             } else {
                 console.log("wrong");
             }
@@ -285,7 +292,7 @@ function setupStartbutton() {
         layers = document.getElementsByClassName('quiz-card__layer')
         layers[1].classList.toggle("show")
         layers[0].classList.toggle("show")
-       
+
     })
 }
 
@@ -355,7 +362,7 @@ function toggleDislike() {
 
 
 function play() {
-    score = document.getElementsByClassName('player-score')
+    displayScore = document.getElementsByClassName('player-score')
     answerButtons = document.getElementsByClassName("quiz-card__answer-btn")
     card_image = document.querySelector('.quiz-card__image')
     card_title = document.querySelector('.quiz-card__title')
