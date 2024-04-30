@@ -21,6 +21,11 @@ app.get("/", (req, res) => {
     })
 });
 
+app.get("/", (req, res) => {
+    res.render("index")
+});
+
+
 app.get("/contact", (req, res) => {
     res.render("contact")
 });
@@ -31,6 +36,26 @@ app.get("/contacten", (req, res) => {
 
 app.get("/home", (req, res) => {
     res.render("home")
+});
+
+app.get("/blacklisted-pagina", (req, res) => {
+    res.render("blacklisted-pagina")
+});
+
+app.get("/favorieten", (req, res) => {
+    res.render("favorieten")
+});
+
+app.get("/favoriete-club", (req, res) => {
+    res.render("favoriete-club")
+});
+
+app.get("/favoriete-league", (req, res) => {
+    res.render("favoriete-league")
+});
+
+app.get("/quiz", (req, res) => {
+    res.render("quiz")
 });
 
 
