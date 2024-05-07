@@ -28,7 +28,7 @@ body {
 
 /* FIFA HOME PAGINA */
 .home-main{
-    background-image: url(https://images5.alphacoders.com/133/thumb-1920-1338700.png);
+    background-image: url(../assets/home-background.png);
     background-repeat:no-repeat;
     background-size: cover;
 }
