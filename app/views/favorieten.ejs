@@ -1,14 +1,23 @@
 <%- include("./partials/header") %>
-  <main>
+  <main >
       <h1 class="titel display-3 projecten--title">Favorieten</h1>
+      <style>
+        body {
+            background-image: url('/assets/skillseekers-background.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+    </style>
+    
+      
       <section class="fav-container">
         <figure class="fav-card sm-col-8">
             <figcaption id="naam-afbeelding">Favoriete Club</figcaption>
-            <a href="favoriete-club.html"><img class="foto-favorieten" src="assets/fav-club.webp"alt="foto niet beschikbaar" /></a> 
+            <a href="/favoriete-club"><img class="foto-favorieten" src="assets/fav-club.webp"alt="foto niet beschikbaar" /></a> 
         </figure>
     
         <figure class="fav-card sm-col-8">
             <figcaption id="naam-afbeelding">Favoriete League</figcaption>
-            <a href="favoriete-league.html"><img class="foto-favorieten" src="assets/league.jpeg"alt="foto niet beschikbaar" /></a>
+            <a href="/favoriete-league"><img class="foto-favorieten" src="assets/league.jpeg"alt="foto niet beschikbaar" /></a>
         </figure>
         <%- include("./partials/footer") %>
