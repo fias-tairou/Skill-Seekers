@@ -27,10 +27,12 @@ body {
 }
 
 /* FIFA HOME PAGINA */
-.home-main{
-    background-image: url(../assets/home-background.png);
-    background-repeat:no-repeat;
+.home-main {
+    background-image: url("/assets/home-background.png");
+    background-repeat: no-repeat;
     background-size: cover;
+    height: 100vh;
+    width: 100%;
 }
 
 .options-container {
@@ -40,9 +42,9 @@ body {
     justify-content: space-between;
     padding: 0 20px;
     /* Voeg witruimte toe aan de zijkanten */
-  }
+}
 
-  .option-card {
+.option-card {
     background-color: rgba(255, 255, 255, 0.769);
     flex: 1;
     /* Dynamische breedte met marge */
@@ -56,44 +58,44 @@ body {
     transition: all 0.3s ease;
     background-size: cover;
     background-position: center;
-  }
+}
 
-  .option-card:last-child {
+.option-card:last-child {
     margin-right: 0;
     /* Geen marge aan de rechterkant voor de laatste kaart */
-  }
+}
 
-  .option-card:hover {
+.option-card:hover {
     transform: translateY(-5px);
     box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
-  }
+}
 
-  @media screen and (max-width:576px) {
+@media screen and (max-width:576px) {
     .option-card {
-      margin: 20px auto;
-      border-color: black;
+        margin: 20px auto;
+        border-color: black;
     }
-  }
+}
 
-  @media screen and (max-width:768px) {
+@media screen and (max-width:768px) {
 
     .option-card {
-      margin: 20px auto;
-      border-color: black;
+        margin: 20px auto;
+        border-color: black;
     }
-  }
+}
 
 
 
 
 /* Quiz Page */
-.quiz-cardlayer{
+.quiz-cardlayer {
     background-color: rgba(240, 248, 255, 0.721);
 }
 
 .quiz-page {
     background-image: url(https://wallpapers.com/images/featured/cool-soccer-xx9ly9v0yostbag2.jpg);
-    background-size:cover;
+    background-size: cover;
     background-repeat: no-repeat;
     font-family: Arial, sans-serif;
 }
@@ -193,7 +195,7 @@ body {
     background-color: var(--lapis);
 }
 
-.website-header ul{
+.website-header ul {
     display: flex;
     margin-top: 10px;
 }
@@ -207,6 +209,7 @@ body {
 .website-header .account--btn {
     text-decoration: none;
 }
+
 .website-header__link {
     color: #f2f2f2;
     text-align: center;
@@ -225,17 +228,17 @@ body {
     color: white;
 }
 
-.website-header__logo{
+.website-header__logo {
     position: relative;
     margin: auto;
-    
+
 }
 
 
 /*landing page*/
 
 .projecten--title {
-    
+
     margin-top: 80px;
     margin-bottom: 80px;
     text-align: center;
@@ -272,7 +275,7 @@ body {
     transform: translate(-50%, -50%);
 }
 
-#projectUnavailable img{
+#projectUnavailable img {
     opacity: 0.1;
 }
 
@@ -342,7 +345,7 @@ body {
     border-radius: 5rem;
     text-align: center;
     width: 100%;
-    color: white; 
+    color: white;
 }
 
 .sign-up--btn {
@@ -409,9 +412,9 @@ body {
     justify-content: center;
     column-gap: 100px;
     margin-bottom: 50px;
-  }
+}
 
-  .fav-card {
+.fav-card {
     flex: 1;
     /* Dynamische breedte met marge */
     padding: 7vh;
@@ -425,14 +428,14 @@ body {
     transition: all 0.3s ease;
     background-size: cover;
     background-position: center;
-  }
+}
 
 /*Blacklisted */
-.input-blacklist{
+.input-blacklist {
     border: black solid 1px;
 }
 
-.blacklist-section{
+.blacklist-section {
     margin-left: 100px;
     margin-right: 100px;
     justify-content: center;
@@ -441,19 +444,19 @@ body {
     column-gap: 100px;
 }
 
-.blackitsed-pagina-main{
+.blackitsed-pagina-main {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     row-gap: 100px;
-    
+
 }
 
-.verwijderKnop{
+.verwijderKnop {
     width: 20px;
 }
 
-main#main-favorieten{
+main#main-favorieten {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
@@ -461,12 +464,12 @@ main#main-favorieten{
     margin-bottom: 14vh;
 }
 
-img.foto-favorieten{
+img.foto-favorieten {
     height: auto;
     width: 300px;
 }
 
-figcaption#naam-afbeelding{
+figcaption#naam-afbeelding {
     font-size: xx-large;
     margin: 15px;
 }
@@ -486,7 +489,7 @@ figcaption#naam-afbeelding{
     justify-content: center;
 }
 
-.figure-section{
+.figure-section {
     display: flex;
     justify-content: center;
 }
@@ -501,11 +504,11 @@ figcaption#naam-afbeelding{
     text-align: justify;
 }
 
-figure{
+figure {
     text-align: center;
 }
 
-p{
+p {
     text-align: center;
 }
 
@@ -518,7 +521,7 @@ p{
     z-index: -1;
 }
 
-.main-spelers{
+.main-spelers {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 20px;
@@ -526,12 +529,12 @@ p{
     margin-bottom: 14vh;
 }
 
-.spelers-img{
+.spelers-img {
     width: 250px;
     height: auto;
 }
 
-.spelers-figcaption{
+.spelers-figcaption {
     max-width: 300px;
     text-align: justify;
 }
@@ -547,6 +550,10 @@ footer {
     width: 100%;
     margin-top: auto;
     padding: 1rem;
+    margin: 0;
+    position: fixed;
+    left: 0;
+    bottom: 0;
 
 }
 
@@ -587,26 +594,28 @@ footer {
         font-size: 45px;
         margin-bottom: 20px;
     }
-    .option-card{
+
+    .option-card {
         padding: 5vh;
     }
 
-    .options-container{
+    .options-container {
         row-gap: 30px;
-       }
+    }
 }
 
 @media screen and (max-width: 990px) {
     nav {
         display: none;
     }
-    .options-container{
+
+    .options-container {
         row-gap: 30px;
-       }
+    }
 }
 
 @media screen and (max-width: 1542px) {
-   .options-container{
-    row-gap: 100px;
-   }
+    .options-container {
+        row-gap: 100px;
+    }
 }
