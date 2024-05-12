@@ -1,6 +1,15 @@
 import express, { Express } from "express";
 import dotenv from "dotenv";
 import path from "path";
+import indexRouter from "./routers/index";
+import contactRouter from "./routers/contacts";
+import blacklistRouter from "./routers/blacklist";
+import favorietenRouter from "./routers/favorieten";
+import homeRouter from "./routers/home";
+import loginRouter from "./routers/login";
+import quizRouter from "./routers/quiz";
+import registerRouter from "./routers/register";
+
 
 dotenv.config();
 
@@ -11,66 +20,20 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 app.set('views', path.join(__dirname, "views"));
-
 app.set("port", process.env.PORT || 3000);
 
-app.get("/", (req, res) => {
-    res.render("index", {
-        title: "Hello World",
-        message: "Hello World"
-    })
-});
-
-app.get("/", (req, res) => {
-    res.render("index")
-});
 
 
-app.get("/contact", (req, res) => {
-    res.render("contact")
-});
-
-app.get("/contacten", (req, res) => {
-    res.render("contact")
-});
-
-app.get("/home", (req, res) => {
-    res.render("home")
-});
-
-app.get("/blacklisted-pagina", (req, res) => {
-    res.render("blacklisted-pagina")
-});
-
-app.get("/favorieten", (req, res) => {
-    res.render("favorieten")
-});
-
-app.get("/favoriete-club", (req, res) => {
-    res.render("favoriete-club")
-});
-
-app.get("/favoriete-league", (req, res) => {
-    res.render("favoriete-league")
-});
-
-app.get("/quiz", (req, res) => {
-    res.render("quiz")
-});
-
-app.get("/login", (req, res) => {
-    res.render("login")
-});
-
-app.get("/register", (req, res) => {
-    res.render("register")
-});
-
-app.get("/password-reset", (req, res) => {
-    res.render("password-reset")
-});
-
-
+// Routers
+app.use('/', indexRouter())
+app.use('/contact', contactRouter())
+app.use('/contacten', contactRouter())
+app.use('/quiz', quizRouter())
+app.use('/blacklist', blacklistRouter())
+app.use('/favorieten', favorietenRouter())
+app.use('/home', homeRouter())
+app.use('/login', loginRouter())
+app.use('/register', registerRouter())
 
 app.listen(app.get("port"), () => {
     console.log("Server started on http://localhost:" + app.get('port'));
