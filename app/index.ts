@@ -9,11 +9,14 @@ import homeRouter from "./routers/home";
 import loginRouter from "./routers/login";
 import quizRouter from "./routers/quiz";
 import registerRouter from "./routers/register";
-
+import { utils } from './services/utils'
+import { log } from "console";
+import { render } from "ejs";
 
 dotenv.config();
 
 const app: Express = express();
+
 
 app.set("view engine", "ejs");
 app.use(express.json());
@@ -35,7 +38,18 @@ app.use('/home', homeRouter())
 app.use('/login', loginRouter())
 app.use('/register', registerRouter())
 
-app.listen(app.get("port"), () => {
+
+
+app.get('/test', async (req, res) => {
+
+    let clubImage = await utils.getClubImage(13)
+    let leagueImage = await utils.getLeagueImage(16)
+
+    res.render('test', { clubImage, leagueImage })
+})
+
+
+app.listen(app.get("port"), async () => {
     console.log("Server started on http://localhost:" + app.get('port'));
 });
 
