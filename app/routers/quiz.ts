@@ -18,7 +18,7 @@ export default function quizRouter() {
         let question: QuizQuestionModel = await createQuizQuestion()
 
         let quizProperties = {
-            question,
+            question
         }
         res.render("quiz_question", { ...quizProperties })
     });

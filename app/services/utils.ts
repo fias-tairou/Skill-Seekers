@@ -6,7 +6,7 @@ function randomRange(min: number, max: number): number { // min and max included
 }
 
 function randomInt(max: number): number {
-    return Math.floor(Math.random() * max +);
+    return Math.floor(Math.random() * max);
 }
 
 async function getImage(url: string) {
