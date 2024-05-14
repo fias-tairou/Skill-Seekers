@@ -10,6 +10,7 @@ import loginRouter from "./routers/login";
 import quizRouter from "./routers/quiz";
 import registerRouter from "./routers/register";
 import { utils } from './services/utils'
+import { createQuizQuestion } from './services/quizService'
 import { log } from "console";
 import { render } from "ejs";
 
@@ -44,12 +45,15 @@ app.get('/test', async (req, res) => {
 
     let clubImage = await utils.getClubImage(13)
     let leagueImage = await utils.getLeagueImage(16)
+    let club = await utils.getClubs(15)
+    console.log(club);
+    let x = createQuizQuestion()
+    console.log(x);
+
 
     res.render('test', { clubImage, leagueImage })
 })
 
-
 app.listen(app.get("port"), async () => {
     console.log("Server started on http://localhost:" + app.get('port'));
 });
-

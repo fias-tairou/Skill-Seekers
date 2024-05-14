@@ -14,8 +14,7 @@ async function getImage(url: string) {
         'accept': 'image/png',
         'X-AUTH-TOKEN': API_KEY
     }
-    const endpoint = url
-    return fetch(endpoint, {
+    return fetch(url, {
         method: "GET",
         headers: headers
     }).then((response) => {
@@ -26,6 +25,27 @@ async function getImage(url: string) {
         let buffer = Buffer.from(await blob.arrayBuffer())
         return "data:" + blob.type + ';base64,' + buffer.toString('base64');
     })
+}
+
+async function fetchItem(url: string) {
+    let headers = {
+        'accept': 'application/json',
+        'X-AUTH-TOKEN': API_KEY
+    }
+    return fetch(url, {
+        method: "GET",
+        headers: headers
+    }).then((response) => {
+        // console.log(response.blob());
+        return response.json()
+    }).then((json) => {
+        return json.items
+    })
+}
+
+async function getClubs(page: number | string) {
+    const url = `https://futdb.app/api/clubs?page=${page}`
+    return fetchItem(url)
 }
 
 async function getClubImage(clubId: number | string = 1) {
@@ -41,5 +61,5 @@ async function getLeagueImage(leagueId: number | string = 15) {
 }
 
 export const utils = {
-    randomRange, randomInt, getClubImage, getLeagueImage
+    randomRange, randomInt, getClubImage, getLeagueImage, fetchItem, getClubs
 }
