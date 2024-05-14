@@ -33,6 +33,8 @@ body {
     background-size: cover;
 }
 
+
+
 .options-container {
     margin-top: 50px;
     display: flex;
@@ -454,10 +456,8 @@ body {
 }
 
 main#main-favorieten{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    
     gap: 20px;
-    margin-top: 14vh;
     margin-bottom: 14vh;
 }
 
@@ -541,7 +541,7 @@ footer {
     display: flex;
     color: white;
     background-color: var(--royal-blue);
-    height: 60px;
+    height: 40px;
     justify-content: center;
     align-items: center;
     width: 100%;

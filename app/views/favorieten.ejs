@@ -1,23 +1,30 @@
-<%- include("./partials/header") %>
-  <main >
-      <h1 class="titel display-3 projecten--title">Favorieten</h1>
-      <style>
-        body {
-            background-image: url('/assets/skillseekers-background.jpg');
-            background-size: cover;
-            background-repeat: no-repeat;
-        }
-    </style>
-    
-      
-      <section class="fav-container">
-        <figure class="fav-card sm-col-8">
-            <figcaption id="naam-afbeelding">Favoriete Club</figcaption>
-            <a href="/favoriete-club"><img class="foto-favorieten" src="assets/fav-club.webp"alt="foto niet beschikbaar" /></a> 
-        </figure>
-    
-        <figure class="fav-card sm-col-8">
-            <figcaption id="naam-afbeelding">Favoriete League</figcaption>
-            <a href="/favoriete-league"><img class="foto-favorieten" src="assets/league.jpeg"alt="foto niet beschikbaar" /></a>
-        </figure>
-        <%- include("./partials/footer") %>
+        <%- include("./partials/header") %>
+        <main id="main-favorieten">
+            <h1 class="titel display-3 projecten--title">Favorieten</h1>
+            <style>
+              body {
+                  background-image: url('/assets/proberen.jpg');
+                  background-size: cover;
+                  background-repeat: no-repeat;
+              }
+          </style>
+    <section class="options-container">
+      <article class="option-card sm-col-8" onclick="redirectTo('/favoriete-club')">
+        <h3 style="margin-bottom: 20px;">favoriete club</h3>
+      </article>
+      <article class="option-card sm-col-8" onclick="redirectTo('/favoriete-league')"> 
+        <h3 style="margin-bottom: 20px;">favoriete league</h3>
+        
+      </article>
+
+    </section>
+  </main>
+  <!-- Bootstrap JS en jQuery -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // JavaScript-functie om door te verwijzen naar de opgegeven URL
+    function redirectTo(url) {
+      window.location.href = url;
+    }
+  </script>
+<%- include("./partials/footer") %>
