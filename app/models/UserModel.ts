@@ -1,11 +1,10 @@
-export default interface QuizQuestionModel {
+export default interface UserModel {
     _id: string,
     username: string,
     email: string,
-    name: string[],
-    favoriteTeams: string[],
-    favoriteLeague: string[],
-    blacklistedTeams: string[],
-    BlacklistedLeagues: string[],
+    favoriteTeams: string[] | number[],
+    favoriteLeague: string | number,
+    blacklistedTeams: string[] | number[],
+    BlacklistedLeagues: string[] | number[],
     currentHighscore: number
 }

@@ -40,14 +40,13 @@
                                     <h5 class="quiz-card__title text-strong py-1">Welke ploeg is dit?</h5>
                                 </li>
                                 <li class="list-group-item text-end p-2">
-                                    <p class="m-0">Score: <span id="player-score">0</span></p>
+                                    <p class="m-0">Score: <span id="player-score"> <%= score  %></span></p>
                                 </li>
                             </ul>
                             <figure class="text-center mt-2">
                                 <figcaption class="quiz-card__image-wrapper position-relative">
 
-                                    <img class="quiz-card__image rounded-circle shadow-none" src=<%=question.image_url
-                                        %>
+                                    <img class="quiz-card__image rounded-circle shadow-none" src=<%= question.image_url %>
                                     height="150px" width="170px" alt="club embleem" class="img-fluid"
                                     onclick="toggleButtons()">
                                     <section class="quiz-card__like-dislike" id="buttons-container">
@@ -60,12 +59,14 @@
                                     </section>
                                 </figcaption>
                             </figure>
-                            <form class="text-center mt-3 p-3" action="/quiz/vraag" method="post">
-
-                                <% for( option of question.options ) { %>
-                                    <button type="button"
-                                        class="quiz-card__answer-btn btn btn-clear rounded border border-dark btn-outline-dark w-100 col-10 my-1">
-                                        <%= option %>
+                            <form class="text-center mt-3 p-3" action="/quiz/vraag/1" method="post">
+                                <% for( option in question.options ) { %>
+                                    <button type="submit"
+                                        class="quiz-card__answer-btn btn btn-clear rounded border border-dark btn-outline-dark w-100 col-10 my-1"
+                                        name="answer"
+                                        value='<%= question.options[option] %>' 
+                                        >
+                                        <%= question.options[option] %>
                                     </button>
                                     <% } %>
                             </form>
