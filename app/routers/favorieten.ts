@@ -33,10 +33,13 @@ export default function favorietenRouter(sessionPool: SessionPoolModel) {
 
     router.get("/league", async (req, res) => {
 
-        let a = utils.getClubImage
-        let getImage = await utils.getClubImage(1)
-        res.render("favoriete-league", {})
+        let getImage = await utils.getClubImage()
+        let club: LeagueModel = await utils.getLeagues(1)
+
+
+        res.render("favoriete-league", {club})
     });
+
 
     router.get("/clubs", async (req, res) => {
 
@@ -48,12 +51,12 @@ export default function favorietenRouter(sessionPool: SessionPoolModel) {
         if (session) {
             favoriteClubs = session.user!.favoriteTeams
             clubs = await getClubs(favoriteClubs)
-            console.log(clubs);
             res.render("favoriete-club", { clubs })
         } else {
             res.redirect("/")
         }
     });
+
 
     return router
 }

@@ -1,4 +1,4 @@
-import Club from "../models/ClubModel"
+import ClubModel from "../models/ClubModel"
 import QuizQuestion from "../models/QuizQuestionModel"
 import Session from "../models/SessionModel"
 import { utils } from "./utils"
@@ -12,16 +12,16 @@ const LEAGUES_ENDPOINT: string = '/api/leagues'
 const LEAGUES_PAGES: number = 4
 
 
-function getRandomClub(pool: Club[]): Club {
+function getRandomClub(pool: ClubModel[]): ClubModel {
 
     let poolSize: number = pool.length
-    let club: Club = pool[utils.randomInt(poolSize)]
+    let club: ClubModel = pool[utils.randomInt(poolSize)]
     return club
 }
 
-function getRandomOption(pool: Club[], unavailableOptions: string[]): string {
+function getRandomOption(pool: ClubModel[], unavailableOptions: string[]): string {
 
-    let club: Club = getRandomClub(pool)
+    let club: ClubModel = getRandomClub(pool)
     let name: string = club.name
 
     while (unavailableOptions.includes(name)) {
@@ -35,7 +35,7 @@ function getRandomOption(pool: Club[], unavailableOptions: string[]): string {
 
 export async function createQuizQuestion(): Promise<QuizQuestion> {
     let page: number = utils.randomRange(1, CLUBS_PAGES)
-    let clubPool: Club[] = await utils.getClubs(page)
+    let clubPool: ClubModel[] = await utils.getClubs(page)
     let question: QuizQuestion | undefined = {
         answer_id: "",
         name: "",

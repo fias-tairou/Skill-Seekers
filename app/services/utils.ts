@@ -60,14 +60,16 @@ export let utils = {
         return data.club
     },
 
-    getLeagues: (page: number | string) => {
+    getLeagues: async (page: number | string) => {
         const url = `https://futdb.app/api/leagues?page=${page}`
-        return fetchItem(url)
+        let data = await fetchItem(url)
+        return data.items
     },
 
-    getLeague: (id: number | string) => {
+    getLeague: async (id: number | string) => {
         const url = `https://futdb.app/api/leagues/${id}`
-        return fetchItem(url)
+        let data = await fetchItem(url)
+        return data.league
     },
 
 
