@@ -7,17 +7,16 @@
              background-repeat: no-repeat;
          }
      </style>
-        <h1 class="display-3 projecten--title">Favoriete Club</h1>
+
+
+        <!-- <h1 class="display-3 projecten--title">Favoriete Club</h1> -->
         <section class="figure-section">
-         <figure class="figure-infoSection">
-            <a href="spelers.html"><img class="figure-img" src="assets/images/manunited.png" alt="foto niet beschikbaar" /></a>
-            <figcaption class="figcaption-infoSection">Manchester United<button id="delete"></a><img class="verwijderKnop" src="assets/VerwijderKnop.webp" alt="verwijderKnop"></figcaption>
-         </figure>
-         
-     
-         <figure class="figure-infoSection">
-            <a href="spelers.html"><img class="figure-img" src="assets/images/liverpool.png" alt="foto niet beschikbaar" /></a>
-            <figcaption class="figcaption-infoSection">Liverpool<button id="delete"></a><img class="verwijderKnop" src="assets/VerwijderKnop.webp" alt="verwijderKnop"></figcaption>
-         </figure>
-        </section>
+         <% for( club of clubs) { %>
+            <figure class="figure-infoSection">
+               <a href=<%= "/favorieten/clubs/"+club.id %>><img class="figure-img" src=<%= club.image_url %> alt="foto niet beschikbaar" /></a>
+               <figcaption class="figcaption-infoSection"><%= club.name %><button id="delete"></a><img class="verwijderKnop" src="/assets/VerwijderKnop.webp" alt="verwijderKnop"></figcaption>
+            </figure>
+         <% } %>
+        
+        
         <%- include("./partials/footer") %>
