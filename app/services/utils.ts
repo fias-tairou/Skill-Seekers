@@ -1,3 +1,7 @@
+import { v4 as uuidv4 } from 'uuid';
+import Session from '../models/SessionModel';
+import SessionPoolModel from '../models/SessionPoolModel';
+
 const API_KEY: string = "3be1d466-707b-4667-897e-5498cd656e95"
 
 
@@ -60,6 +64,42 @@ async function getLeagueImage(leagueId: number | string = 15) {
     return getImage(endpoint)
 }
 
+export async function createSession(): Promise<Session> {
+    let session: Session = {
+        id: uuidv4(),
+        quiz: {
+            currentQuestion: undefined,
+            score: 0
+        },
+        user: {
+            _id: "100",
+            username: "dummy1",
+            email: "bob@gmail.com",
+            favoriteTeams: [1, 2, 3, 4, 5],
+            favoriteLeague: 13,
+            blacklistedTeams: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+            BlacklistedLeagues: [1, 5, 7, 9, 11],
+            currentHighscore: 0
+        }
+    }
+
+    return session
+}
+
+export function getSession(sessionPool: SessionPoolModel, sessionId: string | undefined): Session | undefined {
+    if (sessionId) {
+        return sessionPool[sessionId]
+    } else {
+        return undefined
+    }
+}
+
+export function addSession(sessionPool: SessionPoolModel, session: Session) {
+    let id: string = session.id
+    sessionPool[id] = session
+}
+
+
 
 function shuffleArray(array: any) {
     for (var i = array.length - 1; i > 0; i--) {
@@ -71,5 +111,5 @@ function shuffleArray(array: any) {
 }
 
 export const utils = {
-    randomRange, randomInt, getClubImage, getLeagueImage, fetchItem, getClubs, shuffleArray
+    randomRange, randomInt, getClubImage, getLeagueImage, fetchItem, getClubs, shuffleArray, createSession, getSession, addSession
 }

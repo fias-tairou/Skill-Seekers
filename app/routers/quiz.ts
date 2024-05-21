@@ -1,70 +1,88 @@
 import express, { Router } from "express"
-import { createQuizQuestion, createSession } from "../services/quizService"
+import { createQuizQuestion } from "../services/quizService"
 import QuizQuestion from "../models/QuizQuestionModel";
 import Session from "../models/SessionModel";
+import { utils } from "../services/utils";
+import SessionPoolModel from "../models/SessionPoolModel";
 import { log } from "console";
 
-export default function quizRouter(sessionPool: Session[] = []) {
-    let session: Session | undefined
+export default function quizRouter(sessionPool: SessionPoolModel) {
     const router = express.Router()
 
     router.get("/", (req, res) => {
         let session: string | undefined
-        res.clearCookie("quizSessionId")
         res.render("quiz", { session })
     });
 
 
     router.post("/vraag/:id", async (req, res) => {
+
         let sessionId: string | undefined = req.cookies.quizSessionId
         let answer: string = req.body.answer
+        console.log(answer);
+
         let score: number | undefined
 
-        let session: Session | undefined = sessionPool.filter((session) => {
-            if (session.id === sessionId) {
-                return session
-            }
-        })[0]
+        let session: Session | undefined = utils.getSession(sessionPool, sessionId)
 
         if (!session) {
-            let newQuizSession: Session = await createSession()
+            console.log("Session Not found creating new session");
 
-            sessionPool.push(newQuizSession)
-            session = newQuizSession
-            res.cookie("quizSessionId", newQuizSession.id)
-            sessionId = newQuizSession.id
-            session.score = 0
-            let question: QuizQuestion
-            question = session.currentQuestion
-            score = session.score
+            let newSession: Session = await utils.createSession()
+            res.cookie("quizSessionId", newSession.id)
+            sessionId = newSession.id
+            newSession.quiz = {
+                currentQuestion: await createQuizQuestion(),
+                score: 0
+            }
+
+            let question: QuizQuestion | undefined
+            question = newSession.quiz.currentQuestion
+            score = newSession.quiz.score
+
+            session = newSession
+            utils.addSession(sessionPool, newSession)
             res.render("quiz_question", { question, score })
         }
 
-        // Antwoord werd gegeven en is relevant aan de huidige sessie
-        if (answer && session.currentQuestion.options.includes(answer)) {
-            console.log("controlling");
-            // Antwoord controleren
-            const currentQuestion: QuizQuestion = session.currentQuestion
-            if (answer === currentQuestion.name) {
-                session.score += 10 // score toekennen
-                session.currentQuestion = await createQuizQuestion() // niew vraage creeren
-                let question: QuizQuestion
-                question = session.currentQuestion
-                score = session.score
-                res.render("quiz_question", { question, score })
+
+        if (!session.quiz) {
+            console.log("QUIZ GAME NOT FOUND CREATING NEW ONE");
+
+            session.quiz = {
+                currentQuestion: await createQuizQuestion(),
+                score: 0
             }
-            else { // Fout antwoord dus sessie moet gestopt worden
-                sessionPool = sessionPool.filter((session) => {
-                    if (session.id !== sessionId) {
-                        return session
-                    }
-                })
-                console.log("session cleared from pool");
-                console.log("SESSIONPOOL SIZE IS " + sessionPool.length);
-                res.clearCookie("quizSessionId")
-                res.redirect("/quiz")
+
+            let question: QuizQuestion | undefined
+            question = session.quiz.currentQuestion
+            score = session.quiz.score
+            res.render("quiz_question", { question, score })
+        }
+
+        if (session.quiz && session.quiz.currentQuestion) {
+            // Antwoord werd gegeven en is relevant aan de huidige sessie
+            if (answer && session.quiz.currentQuestion.options.includes(answer)) {
+                console.log("controlling");
+                // Antwoord controleren
+                const currentQuestion: QuizQuestion | undefined = session.quiz.currentQuestion
+                if (currentQuestion && answer === currentQuestion.name) {
+                    session.quiz.score += 10 // score toekennen
+                    session.quiz.currentQuestion = await createQuizQuestion() // niew vraage creeren
+                    let question: QuizQuestion
+                    question = session.quiz.currentQuestion
+                    score = session.quiz.score
+                    res.render("quiz_question", { question, score })
+                }
+                else { // Fout antwoord dus sessie moet gestopt worden
+                    session.quiz = undefined
+                    console.log("WRONG ANSWER QUIZ GAME OVER");
+                    console.log(sessionPool);
+                    res.redirect("/quiz")
+                }
             }
         }
+
     });
     return router
 }

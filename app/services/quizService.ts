@@ -35,9 +35,10 @@ function getRandomOption(pool: Club[], unavailableOptions: string[]): string {
 export async function createSession(): Promise<Session> {
     let session: Session = {
         id: uuidv4(),
-        currentQuestion: await createQuizQuestion(),
-        score: 0,
-
+        quiz: {
+            currentQuestion: await createQuizQuestion(),
+            score: 0
+        },
         user: {
             _id: "100",
             username: "dummy1",

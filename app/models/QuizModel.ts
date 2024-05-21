@@ -1,8 +1,6 @@
 import QuizQuestion from "./QuizQuestionModel"
-import UserModel from "./UserModel"
 
 export default interface QuizModel {
-    id: string
-    currentQuestion: QuizQuestion
+    currentQuestion: QuizQuestion | undefined
     score: number
 }

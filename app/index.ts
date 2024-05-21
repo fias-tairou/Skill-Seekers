@@ -16,6 +16,7 @@ import { createQuizQuestion } from './services/quizService'
 import Session from "./models/SessionModel";
 import UserModel from "./models/UserModel";
 import { v4 as uuidv4 } from 'uuid';
+import SessionPoolModel from "./models/SessionPoolModel";
 
 
 dotenv.config();
@@ -32,7 +33,7 @@ app.set("port", process.env.PORT || 3000);
 app.use(cookieParser())
 
 // Globale properties
-let sessions: Session[] = []
+let sessions: SessionPoolModel = {}
 
 
 // Routers
@@ -57,13 +58,11 @@ app.get('/test', async (req, res) => {
     let x = createQuizQuestion()
     console.log(x);
 
-
     res.render('test', { clubImage, leagueImage })
 })
 
 
 app.listen(app.get("port"), async () => {
-
 
     console.log("Server started on http://localhost:" + app.get('port'));
 });

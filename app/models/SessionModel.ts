@@ -1,9 +1,8 @@
-import QuizQuestion from "./QuizQuestionModel"
+import QuizModel from "./QuizModel"
 import UserModel from "./UserModel"
 
 export default interface Session {
     user: UserModel | undefined
     id: string
-    currentQuestion: QuizQuestion
-    score: number
+    quiz: QuizModel | undefined
 }
