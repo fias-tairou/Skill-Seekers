@@ -33,6 +33,11 @@ app.use(cookieParser())
 let sessions: SessionPoolModel = {}
 
 
+app.use((req, res, next) => {
+    res.locals.title = "FIFA";
+    next();
+});
+
 // Routers
 app.use('/', indexRouter())
 app.use('/contact', contactRouter())
@@ -44,16 +49,6 @@ app.use('/home', homeRouter())
 app.use('/login', loginRouter())
 app.use('/register', registerRouter())
 
-
-app.get('/test', async (req, res) => {
-    let clubImage = await utils.getClubImage(13)
-    let leagueImage = await utils.getLeagueImage(16)
-    let club = await utils.getClubs(15)
-    console.log(club);
-    let x = createQuizQuestion()
-    console.log(x);
-    res.render('test', { clubImage, leagueImage })
-})
 
 
 app.listen(app.get("port"), async () => {

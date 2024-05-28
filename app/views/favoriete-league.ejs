@@ -20,6 +20,12 @@
 
     <head>
       <style>
+        body {
+          background-image: url('/assets/images/champions-league.jpg');
+          background-size: cover;
+          background-repeat: no-repeat;
+        }
+
         * {
           box-sizing: border-box;
         }
@@ -38,19 +44,14 @@
         }
       </style>
     </head>
-
-
-      <div class="row">
-
-        <% for( club in Clubs) { %>
-          <img src=club.image_url alt="">
+    <br>
+    <br>
+    <div class="row">
+      <% for( club of clubs) { %>
+        <div class="column">
+          <img src=<%=club.image_url %> alt=<%= club.name%> style="width:60%">
+        </div>
         <% } %>
 
-        <div class="column">
-          <h1> <%=  %> </h1>
-        </div>
-        
-      </div>
-
-
+    </div>
     <%- include("./partials/footer") %>

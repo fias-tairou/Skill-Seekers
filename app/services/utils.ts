@@ -15,8 +15,6 @@ let fetchItem = async (url: string) => {
         headers: headers
     });
     const json = await response.json();
-    console.log(json);
-
     return json;
 }
 
@@ -47,7 +45,6 @@ export let utils = {
         return Math.floor(Math.random() * max);
     },
 
-
     getClubs: async (page: number | string) => {
         const url = `https://futdb.app/api/clubs?page=${page}`
         let data = await fetchItem(url)
@@ -71,7 +68,6 @@ export let utils = {
         let data = await fetchItem(url)
         return data.league
     },
-
 
     getClubImage: (clubId: number | string = 1) => {
         const clubEndpoint = "https://futdb.app/api/clubs"
@@ -103,10 +99,8 @@ export let utils = {
                 currentHighscore: 0
             }
         }
-
         return session
     },
-
     getSession: (sessionPool: SessionPoolModel, sessionId: string | undefined): Session | undefined => {
         if (sessionId) {
             return sessionPool[sessionId]
@@ -119,8 +113,6 @@ export let utils = {
         let id: string = session.id
         sessionPool[id] = session
     },
-
-
 
     shuffleArray: (array: any) => {
         for (var i = array.length - 1; i > 0; i--) {

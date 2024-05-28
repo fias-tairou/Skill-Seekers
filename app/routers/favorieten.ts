@@ -4,7 +4,9 @@ import Session from "../models/SessionModel";
 import { utils } from "../services/utils";
 import LeagueModel from "../models/LeagueModel";
 import ClubDisplayModel from "../models/ClubDisplayModel";
-import { getClubs } from "../services/favoriteService";
+import { getClubs, getLeagueClubs } from "../services/favoriteService";
+
+
 
 export default function favorietenRouter(sessionPool: SessionPoolModel) {
     const router = express.Router()
@@ -34,10 +36,8 @@ export default function favorietenRouter(sessionPool: SessionPoolModel) {
     router.get("/league", async (req, res) => {
 
         let getImage = await utils.getClubImage()
-        let club: LeagueModel = await utils.getLeagues(1)
-
-
-        res.render("favoriete-league", {club})
+        let clubs: ClubDisplayModel[] = await getLeagueClubs(13)
+        res.render("favoriete-league", { clubs })
     });
 
 
@@ -47,7 +47,6 @@ export default function favorietenRouter(sessionPool: SessionPoolModel) {
         let session: Session | undefined = utils.getSession(sessionPool, sessionId)
         let favoriteClubs: number[] | string[]
         let clubs: ClubDisplayModel[]
-
         if (session) {
             favoriteClubs = session.user!.favoriteTeams
             clubs = await getClubs(favoriteClubs)
@@ -56,7 +55,6 @@ export default function favorietenRouter(sessionPool: SessionPoolModel) {
             res.redirect("/")
         }
     });
-
 
     return router
 }

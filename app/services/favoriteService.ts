@@ -2,6 +2,12 @@ import ClubDisplayModel from "../models/ClubDisplayModel";
 import ClubModel from "../models/ClubModel";
 import { utils } from "./utils";
 
+
+const LEAGUES_PAGES: number = 4
+const CLUBS_PAGES: number = 38
+
+
+
 export async function getClubs(clubIdentifiers: number[] | string[]): Promise<ClubDisplayModel[]> {
     let clubs: ClubDisplayModel[] = []
 
@@ -24,22 +30,26 @@ export async function getClubs(clubIdentifiers: number[] | string[]): Promise<Cl
 // TODO
 // NOG UITWERKEN
 export async function getLeagueClubs(leagueId: string | number): Promise<ClubDisplayModel[]> {
-
-    let clubPool: ClubModel[] 
-
+    let clubPool: ClubModel[]
     let clubs: ClubDisplayModel[] = []
-    let clubIdentifiers: number[] = []
-    
-    for (let index = 1; index < 38; index++) {
+
+    for (let index = 1; index <= CLUBS_PAGES; index++) {
         clubPool = await utils.getClubs(index)
-        
+
+        for (let index = 0; index < clubPool.length; index++) {
+            const club = clubPool[index];
+            if (club.league === leagueId) {
+                let leagueClub: ClubDisplayModel = {
+                    ...club,
+                    image_url: await utils.getClubImage(club.id)
+                }
+                clubs.push(leagueClub)
+                console.log(clubs.length);
+
+            }
+        }
     }
 
-
-    // OP basis van league ID bijhorende clubs zoeken (Beter 1 keer uitvoeren en opslaan in db)
-    // MOGELIJK periodiek (begin seizoen) uitvoeren en db updaten
-
-    
     return clubs
 }
 
