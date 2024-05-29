@@ -35,7 +35,14 @@ export default function favorietenRouter(sessionPool: SessionPoolModel) {
 
     router.get("/league", async (req, res) => {
 
+        let sessionId: string | undefined = req.cookies.quizSessionId
+        let answer: string | undefined = req.body.answer
+        console.log(answer);
+        let score: number | undefined
+        let session: Session | undefined = utils.getSession(sessionPool, sessionId)
+
         let getImage = await utils.getClubImage()
+
         let clubs: ClubDisplayModel[] = await getLeagueClubs(13)
         res.render("favoriete-league", { clubs })
     });
