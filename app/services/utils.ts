@@ -1,3 +1,7 @@
+import { v4 as uuidv4 } from 'uuid';
+import Session from '../models/SessionModel';
+import SessionPoolModel from '../models/SessionPoolModel';
+
 const API_KEY: string = "3be1d466-707b-4667-897e-5498cd656e95"
 
 
@@ -48,6 +52,11 @@ async function getClubs(page: number | string) {
     return fetchItem(url)
 }
 
+async function getLeagues(page: number | string) {
+    const url = `https://futdb.app/api/leagues?page=${page}`
+    return fetchItem(url)
+}
+
 async function getClubImage(clubId: number | string = 1) {
     const clubEndpoint = "https://futdb.app/api/clubs"
     const endpoint = `${clubEndpoint}/${clubId}/image`
@@ -60,6 +69,46 @@ async function getLeagueImage(leagueId: number | string = 15) {
     return getImage(endpoint)
 }
 
+export async function createSession(): Promise<Session> {
+    let session: Session = {
+        id: uuidv4(),
+        quiz: undefined,
+        user: {
+            _id: "100",
+            username: "dummy1",
+            email: "bob@gmail.com",
+            favoriteTeams: [],
+            favoriteLeague: undefined,
+            blacklistedTeams: [],
+            BlacklistedLeagues: [],
+            currentHighscore: 0
+        }
+    }
+    return session
+}
+
+export function getSession(sessionPool: SessionPoolModel, sessionId: string | undefined): Session | undefined {
+    if (sessionId) {
+        return sessionPool[sessionId]
+    } else {
+        return undefined
+    }
+}
+
+export function addSession(sessionPool: SessionPoolModel, session: Session) {
+    let id: string = session.id
+    sessionPool[id] = session
+}
+
+function shuffleArray(array: any) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+}
+
 export const utils = {
-    randomRange, randomInt, getClubImage, getLeagueImage, fetchItem, getClubs
+    randomRange, randomInt, getClubImage, getLeagueImage, fetchItem, getClubs, shuffleArray, createSession, getSession, addSession, getLeagues
 }
