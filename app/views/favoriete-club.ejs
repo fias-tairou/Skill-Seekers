@@ -2,22 +2,28 @@
     <main class="main-fav-section">
       <style>
          body {
-             background-image: url('/assets/images/club-pagina.jpg');
+             background-image: url('/assets/club-pagina.jpg');
              background-size: cover;
              background-repeat: no-repeat;
          }
      </style>
         <h1 class="display-3-projecten--title">Favoriete Club</h1>
         <section class="figure-section">
-         <figure class="figure-infoSection">
-            <a href="spelers.html"><img class="figure-img" src="assets/images/manunited.png" alt="foto niet beschikbaar" /></a>
-            <figcaption class="figcaption-infoSection">Manchester United<button id="delete"></a><img class="verwijderKnop" src="assets/VerwijderKnop.webp" alt="verwijderKnop"></figcaption>
-         </figure>
-         
+           
+         <figure class="figure-fifa">
+            <figcaption>Liverpool</figcaption>
+            <img src="assets/images/liverpool.png" height="170px" ="foto niet beschikbaar" />
+            <fieldset>reden:</fieldset>
+            <input class="input-blacklist" type="text" name="" id="">
+            <button id="delete"></a><img class="verwijderKnop" src="assets/VerwijderKnop.webp" alt="verwijderKnop">
+        </figure>
      
-         <figure class="figure-infoSection">
-            <a href="spelers.html"><img class="figure-img" src="assets/images/liverpool.png" alt="foto niet beschikbaar" /></a>
-            <figcaption class="figcaption-infoSection">Liverpool<button id="delete"></a><img class="verwijderKnop" src="assets/VerwijderKnop.webp" alt="verwijderKnop"></figcaption>
-         </figure>
-        </section>
+        <figure class="figure-fifa">
+         <figcaption>Manchester United</figcaption>
+         <img src="assets/images/manunited.png" height="170px" ="foto niet beschikbaar" />
+         <fieldset>reden:</fieldset>
+         <input class="input-blacklist" type="text" name="" id="">
+         <button id="delete"></a><img class="verwijderKnop" src="assets/VerwijderKnop.webp" alt="verwijderKnop">
+     </figure>
+
         <%- include("./partials/footer") %>
