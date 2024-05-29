@@ -18,6 +18,7 @@ export default function quizRouter(sessionPool: SessionPoolModel) {
         let session: Session | undefined = utils.getSession(sessionPool, sessionId)
 
 
+
         if (session && session.quiz) {
             let question: QuizQuestion | undefined
             question = session.quiz.currentQuestion
@@ -52,6 +53,7 @@ export default function quizRouter(sessionPool: SessionPoolModel) {
 
         if (!answer && session.quiz) {
             console.log("reload");
+            console.log(session.quiz);
 
             let question: QuizQuestion | undefined
             question = session.quiz.currentQuestion
@@ -162,6 +164,3 @@ export default function quizRouter(sessionPool: SessionPoolModel) {
 
     return router
 }
-
-
-

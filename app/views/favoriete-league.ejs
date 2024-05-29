@@ -1,19 +1,57 @@
 <%- include("./partials/header") %>
-      <main class="main-fav-section">
-        <h1 class="display-3 projecten--title">Favoriete League</h1>
-        <style>
+  <main class="main-fav-section">
+    <!-- <h1 class="display-3 projecten--title">Favoriete League</h1> -->
+    <!-- <style>
           body {
               background-image: url('/assets/images/champions-league.jpg');
               background-size: cover;
               background-repeat: no-repeat;
           }
+      </style> -->
+
+
+    <!-- <section class="figure-section">
+      <figure class="figure-infoSection">
+        <img class="figure-img" src="assets/images/premierleague.png" alt="foto niet beschikbaar" />
+        <figcaption class="figcaption-infoSection">Premier League<button id="delete"></a><img class="verwijderKnop"
+              src="assets/VerwijderKnop.webp" alt="verwijderKnop"></figcaption>
+      </figure>
+    </section> -->
+
+    <head>
+      <style>
+        body {
+          background-image: url('/assets/images/champions-league.jpg');
+          background-size: cover;
+          background-repeat: no-repeat;
+        }
+
+        * {
+          box-sizing: border-box;
+        }
+
+        .column {
+          float: left;
+          width: 25%;
+          padding: 5px;
+        }
+
+        /* Clearfix (clear floats) */
+        .row::after {
+          content: "";
+          clear: both;
+          display: table;
+        }
       </style>
-        <section class="figure-section">
-        <figure class="figure-infoSection">
-            <img class="figure-img" src="assets/images/premierleague.png" alt="foto niet beschikbaar" />
-           <figcaption class="figcaption-infoSection">Premier League<button id="delete"></a><img class="verwijderKnop" src="assets/VerwijderKnop.webp" alt="verwijderKnop"></figcaption>
-        </figure>
-        
-  
-    </section>
+    </head>
+    <br>
+    <br>
+    <div class="row">
+      <% for( club of clubs) { %>
+        <div class="column">
+          <img src=<%=club.image_url %> alt=<%= club.name%> style="width:60%">
+        </div>
+        <% } %>
+
+    </div>
     <%- include("./partials/footer") %>

@@ -35,6 +35,10 @@ app.use(cookieParser())
 // Globale properties
 let sessions: SessionPoolModel = {}
 
+app.use((req, res, next) => {
+    res.locals.title = "FIFA";
+    next();
+});
 
 // Routers
 app.use('/', indexRouter())
@@ -42,7 +46,7 @@ app.use('/contact', contactRouter())
 app.use('/contacten', contactRouter())
 app.use('/quiz', quizRouter(sessions))
 app.use('/blacklist', blacklistRouter())
-app.use('/favorieten', favorietenRouter())
+app.use('/favorieten', favorietenRouter(sessions))
 app.use('/home', homeRouter())
 app.use('/login', loginRouter())
 app.use('/register', registerRouter())
