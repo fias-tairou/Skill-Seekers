@@ -1,4 +1,6 @@
-import Club from "../models/ClubModel"
+import ClubModel from "../models/ClubModel"
+import LeagueModel from "../models/LeagueModel";
+import QuizModel from "../models/QuizModel";
 import QuizQuestion from "../models/QuizQuestionModel"
 import Session from "../models/SessionModel"
 import { utils } from "./utils"
@@ -13,16 +15,23 @@ const LEAGUES_ENDPOINT: string = '/api/leagues'
 const LEAGUES_PAGES: number = 4
 
 
-function getRandomClub(pool: Club[]): Club {
+function getRandomClub(pool: ClubModel[]): ClubModel {
 
     let poolSize: number = pool.length
-    let club: Club = pool[utils.randomInt(poolSize)]
+    let club: ClubModel = pool[utils.randomInt(poolSize)]
     return club
 }
 
-function getRandomOption(pool: Club[], unavailableOptions: string[]): string {
+function getRandomLeague(pool: LeagueModel[]): LeagueModel {
 
-    let club: Club = getRandomClub(pool)
+    let poolSize: number = pool.length
+    let league: LeagueModel = pool[utils.randomInt(poolSize)]
+    return league
+}
+
+function getRandomClubOption(pool: ClubModel[], unavailableOptions: string[]): string {
+
+    let club: ClubModel = getRandomClub(pool)
     let name: string = club.name
 
     while (unavailableOptions.includes(name)) {
@@ -32,31 +41,21 @@ function getRandomOption(pool: Club[], unavailableOptions: string[]): string {
     return name
 }
 
-export async function createSession(): Promise<Session> {
-    let session: Session = {
-        id: uuidv4(),
-        quiz: {
-            currentQuestion: await createQuizQuestion(),
-            score: 0
-        },
-        user: {
-            _id: "100",
-            username: "dummy1",
-            email: "bob@gmail.com",
-            favoriteTeams: [1, 2, 3, 4, 5],
-            favoriteLeague: 13,
-            blacklistedTeams: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-            BlacklistedLeagues: [1, 5, 7, 9, 11],
-            currentHighscore: 0
-        }
-    }
+function getRandomLeagueOption(pool: LeagueModel[], unavailableOptions: string[]): string {
 
-    return session
+    let league: LeagueModel = getRandomLeague(pool)
+    let name: string = league.name
+
+    while (unavailableOptions.includes(name)) {
+        league = getRandomLeague(pool)
+        name = league.name
+    }
+    return name
 }
 
-export async function createQuizQuestion(): Promise<QuizQuestion> {
+export async function createClubQuizQuestion(): Promise<QuizQuestion> {
     let page: number = utils.randomRange(1, CLUBS_PAGES)
-    let clubPool: Club[] = await utils.getClubs(page)
+    let clubPool: ClubModel[] = await utils.getClubs(page)
     let question: QuizQuestion | undefined = {
         answer_id: "",
         name: "",
@@ -71,15 +70,75 @@ export async function createQuizQuestion(): Promise<QuizQuestion> {
     question.image_url = await utils.getClubImage(answer.id)
 
     for (let index = 0; index < OPTION_COUNT - 1; index++) {
-        question.options.push(getRandomOption(clubPool, question.options))
+        question.options.push(getRandomClubOption(clubPool, question.options))
     }
 
     utils.shuffleArray(question.options)
 
     // Recursief uitvoeren tot er een bas64 word gegenereeerd die geen "application/json" bevat
     if (question.image_url.includes("application/json")) {
-        return createQuizQuestion()
+        return createClubQuizQuestion()
     } else {
         return question
+    }
+}
+
+
+export async function createLeagueQuizQuestion(): Promise<QuizQuestion> {
+
+    let page: number = utils.randomRange(1, LEAGUES_PAGES)
+    let leaguePool: LeagueModel[] = await utils.getLeagues(page)
+    let question: QuizQuestion | undefined = {
+        answer_id: "",
+        name: "",
+        options: [],
+        image_url: ""
+    }
+
+    let answer = await getRandomLeague(leaguePool)
+
+    question.answer_id = answer.id
+    question.name = answer.name
+    question.options.push(answer.name)
+    question.image_url = await utils.getLeagueImage(answer.id)
+
+    for (let index = 0; index < OPTION_COUNT - 1; index++) {
+        question.options.push(getRandomLeagueOption(leaguePool, question.options))
+    }
+
+    utils.shuffleArray(question.options)
+
+    // Recursief uitvoeren tot er een bas64 word gegenereeerd die geen "application/json" bevat
+    if (question.image_url.includes("application/json")) {
+        return createClubQuizQuestion()
+    } else {
+
+        return question
+    }
+
+
+}
+
+export async function createNewQuiz(): Promise<QuizModel> {
+
+    let quiz: QuizModel | undefined = {
+        currentQuestion: await createClubQuizQuestion(),
+        score: 0,
+        questionIndex: 1
+    }
+    return quiz
+}
+
+export async function progressQuiz(quiz: QuizModel) {
+    if (!quiz.questionIndex) {
+        quiz.questionIndex = 0
+    }
+    quiz.questionIndex += 1
+    quiz.score += 10
+
+    if (quiz.questionIndex % 2 == 0) {
+        quiz.currentQuestion = await createLeagueQuizQuestion()
+    } else {
+        quiz.currentQuestion = await createClubQuizQuestion()
     }
 }

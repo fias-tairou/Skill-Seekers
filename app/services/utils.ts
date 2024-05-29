@@ -52,6 +52,11 @@ async function getClubs(page: number | string) {
     return fetchItem(url)
 }
 
+async function getLeagues(page: number | string) {
+    const url = `https://futdb.app/api/leagues?page=${page}`
+    return fetchItem(url)
+}
+
 async function getClubImage(clubId: number | string = 1) {
     const clubEndpoint = "https://futdb.app/api/clubs"
     const endpoint = `${clubEndpoint}/${clubId}/image`
@@ -67,10 +72,7 @@ async function getLeagueImage(leagueId: number | string = 15) {
 export async function createSession(): Promise<Session> {
     let session: Session = {
         id: uuidv4(),
-        quiz: {
-            currentQuestion: undefined,
-            score: 0
-        },
+        quiz: undefined,
         user: {
             _id: "100",
             username: "dummy1",
@@ -99,8 +101,6 @@ export function addSession(sessionPool: SessionPoolModel, session: Session) {
     sessionPool[id] = session
 }
 
-
-
 function shuffleArray(array: any) {
     for (var i = array.length - 1; i > 0; i--) {
         var j = Math.floor(Math.random() * (i + 1));
@@ -111,5 +111,5 @@ function shuffleArray(array: any) {
 }
 
 export const utils = {
-    randomRange, randomInt, getClubImage, getLeagueImage, fetchItem, getClubs, shuffleArray, createSession, getSession, addSession
+    randomRange, randomInt, getClubImage, getLeagueImage, fetchItem, getClubs, shuffleArray, createSession, getSession, addSession, getLeagues
 }

@@ -1,5 +1,5 @@
 import express, { Router } from "express"
-import { createQuizQuestion } from "../services/quizService"
+import * as quizService from "../services/quizService"
 import QuizQuestion from "../models/QuizQuestionModel";
 import Session from "../models/SessionModel";
 import { utils } from "../services/utils";
@@ -10,12 +10,11 @@ export default function quizRouter(sessionPool: SessionPoolModel) {
     const router = express.Router()
 
     router.get("/", (req, res) => {
-        let session: string | undefined
-        res.render("quiz", { session })
+        res.render("quiz")
     });
 
 
-    router.post("/vraag/:id", async (req, res) => {
+    router.post("/", async (req, res) => {
 
         let sessionId: string | undefined = req.cookies.quizSessionId
         let answer: string = req.body.answer
@@ -27,33 +26,15 @@ export default function quizRouter(sessionPool: SessionPoolModel) {
 
         if (!session) {
             console.log("Session Not found creating new session");
-
-            let newSession: Session = await utils.createSession()
-            res.cookie("quizSessionId", newSession.id)
-            sessionId = newSession.id
-            newSession.quiz = {
-                currentQuestion: await createQuizQuestion(),
-                score: 0
-            }
-
-            let question: QuizQuestion | undefined
-            question = newSession.quiz.currentQuestion
-            score = newSession.quiz.score
-
-            session = newSession
-            utils.addSession(sessionPool, newSession)
-            res.render("quiz_question", { question, score })
+            session = await utils.createSession()
+            res.cookie("quizSessionId", session.id)
+            utils.addSession(sessionPool, session)
         }
 
 
         if (!session.quiz) {
             console.log("QUIZ GAME NOT FOUND CREATING NEW ONE");
-
-            session.quiz = {
-                currentQuestion: await createQuizQuestion(),
-                score: 0
-            }
-
+            session.quiz = await quizService.createNewQuiz()
             let question: QuizQuestion | undefined
             question = session.quiz.currentQuestion
             score = session.quiz.score
@@ -66,23 +47,53 @@ export default function quizRouter(sessionPool: SessionPoolModel) {
                 console.log("controlling");
                 // Antwoord controleren
                 const currentQuestion: QuizQuestion | undefined = session.quiz.currentQuestion
-                if (currentQuestion && answer === currentQuestion.name) {
-                    session.quiz.score += 10 // score toekennen
-                    session.quiz.currentQuestion = await createQuizQuestion() // niew vraage creeren
+                console.log(answer);
+                console.log(currentQuestion.name);
+                console.log(answer === currentQuestion.name);
+
+
+
+                if (answer === currentQuestion.name) {
+                    await quizService.progressQuiz(session.quiz)
+                    console.log("ok");
+
                     let question: QuizQuestion
                     question = session.quiz.currentQuestion
                     score = session.quiz.score
                     res.render("quiz_question", { question, score })
                 }
                 else { // Fout antwoord dus sessie moet gestopt worden
-                    session.quiz = undefined
+                    let score = session.quiz.score
+                    let highscore = session.user?.currentHighscore
+                    highscore = highscore ? highscore : 0
+                    console.log("Current highscore is " + highscore);
+
                     console.log("WRONG ANSWER QUIZ GAME OVER");
-                    console.log(sessionPool);
-                    res.redirect("/quiz")
+                    if (score <= highscore) {
+                        session.quiz = undefined
+                        res.render("quiz_game_over", { score })
+                    } else {
+                        res.render("quiz_high_score", { score, highscore })
+                    }
+
                 }
             }
         }
-
     });
+
+    router.post("/register-score", async (req, res) => {
+        let sessionId: string | undefined = req.cookies.quizSessionId
+        let session: Session | undefined = utils.getSession(sessionPool, sessionId)
+
+        if (session && session.user && session.quiz) {
+            let score: number | undefined = session.quiz?.score
+            session.user.currentHighscore = score
+            session.quiz = undefined
+        }
+
+        res.render("quiz")
+
+    })
+
     return router
 }

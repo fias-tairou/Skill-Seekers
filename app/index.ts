@@ -12,7 +12,7 @@ import loginRouter from "./routers/login";
 import quizRouter from "./routers/quiz";
 import registerRouter from "./routers/register";
 import { utils } from './services/utils'
-import { createQuizQuestion } from './services/quizService'
+import { createClubQuizQuestion } from './services/quizService'
 import Session from "./models/SessionModel";
 import UserModel from "./models/UserModel";
 import { v4 as uuidv4 } from 'uuid';
@@ -55,7 +55,7 @@ app.get('/test', async (req, res) => {
     let leagueImage = await utils.getLeagueImage(16)
     let club = await utils.getClubs(15)
     console.log(club);
-    let x = createQuizQuestion()
+    let x = createClubQuizQuestion()
     console.log(x);
 
     res.render('test', { clubImage, leagueImage })

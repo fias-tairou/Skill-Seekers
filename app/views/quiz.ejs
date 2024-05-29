@@ -10,8 +10,8 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/style.css">
     <script src="https://kit.fontawesome.com/bd2e401b34.js" crossorigin="anonymous"></script>
 </head>
 
@@ -37,7 +37,7 @@
                         <!-- LAYER -->
                         <section class="difficulty-section text-center py-1 quiz-card__layer show" data-visible=<%= "showStartSection" %>>
                             <h1 class="quiz-header__title mb-4">Test je voetbalkennis</h1>
-                            <form id="start_quiz_form" method="post" action="/quiz/vraag/1" class="form-group mx-auto" style="visibility: hidden;">
+                            <form id="start_quiz_form" method="post" action="/quiz" class="form-group mx-auto" style="visibility: hidden;">
                                 <label for="difficulty" class="difficulty-section__title mb-4">Kies je niveau:</label>
                                 <select id="difficulty" class="form-control">
                                     <option value="beginner">Beginner</option>
