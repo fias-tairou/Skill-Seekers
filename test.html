@@ -1,1 +1,27 @@
 <img src="https://ssl.gstatic.com/onebox/media/sports/logos/4us2nCgl6kgZc0t3hpW75Q_96x96.png" alt="">
+
+
+
+
+<!-- <h1 class="display-3 projecten--title">Favoriete Club</h1> -->
+<section class="figure-section">
+    <% for( club of clubs) { %>
+       <figure class="figure-infoSection">
+          <a href=<%= "/favorieten/clubs/"+club.id %>><img class="figure-img" src=<%= club.image_url %> alt="foto niet beschikbaar" /></a>
+          <figcaption class="figcaption-infoSection"><%= club.name %><button id="delete"></a><img class="verwijderKnop" src="/assets/VerwijderKnop.webp" alt="verwijderKnop"></figcaption>
+       </figure>
+    <% } %>
+
+
+
+
+<!-- fav league -->
+
+    <div class="row">
+        <% for( club of clubs) { %>
+          <div class="column">
+            <img src=<%=club.image_url %> alt=<%= club.name%> style="width:60%">
+          </div>
+          <% } %>
+  
+      </div>

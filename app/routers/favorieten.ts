@@ -39,14 +39,24 @@ export default function favorietenRouter(sessionPool: SessionPoolModel) {
         let answer: string | undefined = req.body.answer
         let session: Session | undefined = utils.getSession(sessionPool, sessionId)
         let clubs: ClubDisplayModel[]
+        let favoriteLeagueId: string | number | undefined
+        let favoriteLeagueImage = ""
+        let league: LeagueModel | undefined
+
+
 
         if (session && session.user?.favoriteLeague) {
             clubs = await getLeagueClubs(session.user?.favoriteLeague)
+            favoriteLeagueId = session.user?.favoriteLeague
+            league = await utils.getLeague(favoriteLeagueId)
+            if (!favoriteLeagueImage) {
+                favoriteLeagueImage = await utils.getLeagueImage(favoriteLeagueId)
+            }
         } else {
             clubs = []
         }
 
-        res.render("favoriete-league", { clubs })
+        res.render("favoriete-league", { clubs, league, favoriteLeagueImage })
     });
 
 

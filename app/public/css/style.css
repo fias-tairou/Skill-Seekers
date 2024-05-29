@@ -236,6 +236,12 @@ body {
 
 }
 
+.display-3-projecten--title {
+    color: white;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 30px;
+}
 
 /*landing page*/
 
@@ -301,6 +307,8 @@ body {
 .project img {
     width: 150px;
 }
+
+
 
 .project {
     display: flex;
@@ -437,6 +445,35 @@ body {
     border: black solid 1px;
 }
 
+/* Stijl voor de specifieke body id */
+#club-page {
+    background-image: url('/assets/club-pagina.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+/* Class die kan worden hergebruikt op andere pagina's */
+.white-frame {
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    /* Witte doorzichtige kleur */
+    padding: 10px;
+    /* Voeg wat padding toe zodat de inhoud niet tegen de rand plakt */
+    display: inline-block;
+    /* Zorgt ervoor dat de padding en border de juiste ruimte innemen */
+    margin: 10px;
+    /* Voeg wat marge toe zodat de figuren niet tegen elkaar plakken */
+}
+
+
+.figure-section {
+    margin-left: 100px;
+    margin-right: 100px;
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 100px;
+}
+
 .blacklist-section {
     margin-left: 100px;
     margin-right: 100px;
@@ -454,6 +491,11 @@ body {
 }
 
 .verwijderKnop {
+    width: 40px;
+    padding-left: 25px;
+}
+
+.verwijderKnopje {
     width: 20px;
 }
 
@@ -497,6 +539,14 @@ figcaption#naam-afbeelding {
     margin: 70px;
 }
 
+.figure-fifa {
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 20px;
+    display: inline-block;
+    border-radius: 10px;
+    width: 250px;
+}
+
 .figcaption-infoSection {
     max-width: 300px;
     text-align: justify;
@@ -508,6 +558,7 @@ figure {
 
 p {
     text-align: center;
+
 }
 
 #map {
@@ -535,6 +586,11 @@ p {
 .spelers-figcaption {
     max-width: 300px;
     text-align: justify;
+}
+
+figcaption,
+fieldset {
+    color: white;
 }
 
 /*footer*/

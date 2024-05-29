@@ -1,13 +1,13 @@
 <%- include("./partials/header") %>
   <main class="main-fav-section">
-    <!-- <h1 class="display-3 projecten--title">Favoriete League</h1> -->
-    <!-- <style>
-          body {
-              background-image: url('/assets/images/champions-league.jpg');
-              background-size: cover;
-              background-repeat: no-repeat;
-          }
-      </style> -->
+    <h1 class="display-3-projecten--title">Favoriete League</h1>
+    <style>
+      body {
+        background-image: url('/assets/club-pagina.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+    </style>
 
 
     <!-- <section class="figure-section">
@@ -43,15 +43,21 @@
           display: table;
         }
       </style>
-    </head>
-    <br>
-    <br>
-    <div class="row">
-      <% for( club of clubs) { %>
-        <div class="column">
-          <img src=<%=club.image_url %> alt=<%= club.name%> style="width:60%">
-        </div>
-        <% } %>
+      <section class="figure-section">
+        <figure class="figure-fifa">
+          <figcaption><%=league.name %></figcaption>
+          <img src=<%=favoriteLeagueImage %> height="180px" alt="foto niet beschikbaar" />
+        </figure>
+      </section>
 
-    </div>
-    <%- include("./partials/footer") %>
+    
+      <section class="figure-section">
+        <% for( club of clubs) { %>
+          <figure class="figure-fifa">
+            <figcaption><%=club.name %></figcaption>
+            <img src=<%=club.image_url %> alt=<%= club.name%> height="170px" />
+          </figure>
+          <% } %>
+      </section>
+
+      <%- include("./partials/footer") %>

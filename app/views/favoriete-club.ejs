@@ -1,22 +1,30 @@
 <%- include("./partials/header") %>
-    <main class="main-fav-section">
+   <main class="main-fav-section">
       <style>
          body {
-             background-image: url('/assets/images/club-pagina.jpg');
-             background-size: cover;
-             background-repeat: no-repeat;
+            background-image: url('/assets/club-pagina.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
          }
-     </style>
+      </style>
+      <h1 class="display-3-projecten--title">Favoriete Club</h1>
+      <section class="figure-section">
 
 
-        <!-- <h1 class="display-3 projecten--title">Favoriete Club</h1> -->
-        <section class="figure-section">
          <% for( club of clubs) { %>
-            <figure class="figure-infoSection">
-               <a href=<%= "/favorieten/clubs/"+club.id %>><img class="figure-img" src=<%= club.image_url %> alt="foto niet beschikbaar" /></a>
-               <figcaption class="figcaption-infoSection"><%= club.name %><button id="delete"></a><img class="verwijderKnop" src="/assets/VerwijderKnop.webp" alt="verwijderKnop"></figcaption>
+            <figure class="figure-fifa">
+               <figcaption>
+                  <%= club.name %> <button id="delete"></a><img class="verwijderKnop" src="/assets/VerwijderKnop.webp"
+                           alt="verwijderKnop">
+               </figcaption>
+
+               <a href=<%="/favorieten/clubs/" +club.id %>>
+                  <img src=<%=club.image_url %> height="170px" ="foto niet beschikbaar" />
+               </a>
             </figure>
-         <% } %>
-        
-        
-        <%- include("./partials/footer") %>
+            <% } %>
+
+
+
+
+               <%- include("./partials/footer") %>
