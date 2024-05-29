@@ -13,7 +13,21 @@ export default function quizRouter(sessionPool: SessionPoolModel) {
     const router = express.Router()
 
     router.get("/", (req, res) => {
-        res.render("quiz")
+        let sessionId: string | undefined = req.cookies.quizSessionId
+        let score: number | undefined
+        let session: Session | undefined = utils.getSession(sessionPool, sessionId)
+
+
+        if (session && session.quiz) {
+            let question: QuizQuestion | undefined
+            question = session.quiz.currentQuestion
+            score = session.quiz.score
+            res.render("quiz_question", { question, score })
+        }
+        else {
+            res.render("quiz")
+
+        }
     });
 
 
@@ -23,9 +37,7 @@ export default function quizRouter(sessionPool: SessionPoolModel) {
         let sessionId: string | undefined = req.cookies.quizSessionId
         let answer: string | undefined = req.body.answer
         console.log(answer);
-
         let score: number | undefined
-
         let session: Session | undefined = utils.getSession(sessionPool, sessionId)
 
 
@@ -105,10 +117,10 @@ export default function quizRouter(sessionPool: SessionPoolModel) {
         res.render("quiz")
     })
 
-    router.post("/add/:id", async (req, res) => {
+    router.post("/add/", async (req, res) => {
         let sessionId: string | undefined = req.cookies.quizSessionId
         let session: Session | undefined = utils.getSession(sessionPool, sessionId)
-        let id: number = parseInt(req.body)
+        let id: number = parseInt(req.body.id)
 
         if (session && session.user && session.quiz) {
 
@@ -126,6 +138,30 @@ export default function quizRouter(sessionPool: SessionPoolModel) {
         res.redirect("/quiz")
     })
 
+
+    router.post("/blacklist/", async (req, res) => {
+        let sessionId: string | undefined = req.cookies.quizSessionId
+        let session: Session | undefined = utils.getSession(sessionPool, sessionId)
+        let id: number = parseInt(req.body.id)
+
+        if (session && session.user && session.quiz) {
+
+            let quiz: QuizModel = session.quiz
+            let questionIndex: number | undefined = quiz.questionIndex
+
+            if (questionIndex) {
+                if (questionIndex % 2 === 0) {
+                    userService.addLeagueToBlacklist(id, session.user)
+                } else {
+                    userService.addTeamToBlacklist(id, session.user)
+                }
+            }
+        }
+        res.redirect("/quiz")
+    })
+
     return router
 }
+
+
 

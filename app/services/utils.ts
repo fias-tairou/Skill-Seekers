@@ -77,14 +77,13 @@ export async function createSession(): Promise<Session> {
             _id: "100",
             username: "dummy1",
             email: "bob@gmail.com",
-            favoriteTeams: [1, 2, 3, 4, 5],
-            favoriteLeague: 13,
-            blacklistedTeams: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-            BlacklistedLeagues: [1, 5, 7, 9, 11],
+            favoriteTeams: [],
+            favoriteLeague: undefined,
+            blacklistedTeams: [],
+            BlacklistedLeagues: [],
             currentHighscore: 0
         }
     }
-
     return session
 }
 

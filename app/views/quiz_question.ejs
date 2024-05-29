@@ -50,15 +50,15 @@
                                     height="150px" width="170px" alt="club embleem" class="img-fluid"
                                     onclick="toggleButtons()">
                                     <section class="quiz-card__like-dislike" id="buttons-container">
-                                        <form method="post" action="<%= `/quiz/blacklist/${question.answer_id}` %>">
-                                            <input type="hidden" name="dislike_id" id="dislike_id">
+                                        <form method="post" action="<%= `/quiz/blacklist` %>">
+                                            <input value="<%= question.answer_id %>" type="hidden" name="id" id="id">
                                             <button class="quiz-card__dislike-btn" onclick="toggleDislike()">
                                                 <i class="fa-regular fa-thumbs-down"></i>
                                             </button>
                                         </form>
 
-                                        <form method="post" action="<%=`/quiz/add/${question.answer_id}` %>">
-                                            <input type="hidden" name="like_id" id="like_id">
+                                        <form method="post" action="<%=`/quiz/add` %>">
+                                            <input value="<%= question.answer_id %>" type="hidden" name="id" id="id">
                                             <button class="quiz-card__like-btn" onclick="toggleLike()">
                                                 <i class="fa-regular fa-thumbs-up"></i>
                                             </button>
