@@ -141,4 +141,7 @@ export async function progressQuiz(quiz: QuizModel) {
     } else {
         quiz.currentQuestion = await createClubQuizQuestion()
     }
+
+
+
 }

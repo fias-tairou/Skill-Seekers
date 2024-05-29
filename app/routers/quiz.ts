@@ -1,10 +1,13 @@
 import express, { Router } from "express"
 import * as quizService from "../services/quizService"
+import * as userService from "../services/userService"
 import QuizQuestion from "../models/QuizQuestionModel";
 import Session from "../models/SessionModel";
 import { utils } from "../services/utils";
 import SessionPoolModel from "../models/SessionPoolModel";
 import { log } from "console";
+import QuizQuestionModel from "../models/QuizQuestionModel";
+import QuizModel from "../models/QuizModel";
 
 export default function quizRouter(sessionPool: SessionPoolModel) {
     const router = express.Router()
@@ -16,13 +19,17 @@ export default function quizRouter(sessionPool: SessionPoolModel) {
 
     router.post("/", async (req, res) => {
 
+
         let sessionId: string | undefined = req.cookies.quizSessionId
-        let answer: string = req.body.answer
+        let answer: string | undefined = req.body.answer
         console.log(answer);
 
         let score: number | undefined
 
         let session: Session | undefined = utils.getSession(sessionPool, sessionId)
+
+
+
 
         if (!session) {
             console.log("Session Not found creating new session");
@@ -31,6 +38,14 @@ export default function quizRouter(sessionPool: SessionPoolModel) {
             utils.addSession(sessionPool, session)
         }
 
+        if (!answer && session.quiz) {
+            console.log("reload");
+
+            let question: QuizQuestion | undefined
+            question = session.quiz.currentQuestion
+            score = session.quiz.score
+            res.render("quiz_question", { question, score })
+        }
 
         if (!session.quiz) {
             console.log("QUIZ GAME NOT FOUND CREATING NEW ONE");
@@ -41,21 +56,19 @@ export default function quizRouter(sessionPool: SessionPoolModel) {
             res.render("quiz_question", { question, score })
         }
 
+
         if (session.quiz && session.quiz.currentQuestion) {
+
+            if (answer && !session.quiz.currentQuestion.options.includes(answer)) {
+                answer = undefined
+            }
+
             // Antwoord werd gegeven en is relevant aan de huidige sessie
             if (answer && session.quiz.currentQuestion.options.includes(answer)) {
-                console.log("controlling");
                 // Antwoord controleren
                 const currentQuestion: QuizQuestion | undefined = session.quiz.currentQuestion
-                console.log(answer);
-                console.log(currentQuestion.name);
-                console.log(answer === currentQuestion.name);
-
-
-
                 if (answer === currentQuestion.name) {
                     await quizService.progressQuiz(session.quiz)
-                    console.log("ok");
 
                     let question: QuizQuestion
                     question = session.quiz.currentQuestion
@@ -73,9 +86,8 @@ export default function quizRouter(sessionPool: SessionPoolModel) {
                         session.quiz = undefined
                         res.render("quiz_game_over", { score })
                     } else {
-                        res.render("quiz_high_score", { score, highscore })
+                        res.render("quiz_high_score", { score, highscore, })
                     }
-
                 }
             }
         }
@@ -90,10 +102,30 @@ export default function quizRouter(sessionPool: SessionPoolModel) {
             session.user.currentHighscore = score
             session.quiz = undefined
         }
-
         res.render("quiz")
+    })
 
+    router.post("/add/:id", async (req, res) => {
+        let sessionId: string | undefined = req.cookies.quizSessionId
+        let session: Session | undefined = utils.getSession(sessionPool, sessionId)
+        let id: number = parseInt(req.body)
+
+        if (session && session.user && session.quiz) {
+
+            let quiz: QuizModel = session.quiz
+            let questionIndex: number | undefined = quiz.questionIndex
+
+            if (questionIndex) {
+                if (questionIndex % 2 === 0) {
+                    userService.addFavoriteLeague(id, session.user)
+                } else {
+                    userService.addFavoriteTeam(id, session.user)
+                }
+            }
+        }
+        res.redirect("/quiz")
     })
 
     return router
 }
+
