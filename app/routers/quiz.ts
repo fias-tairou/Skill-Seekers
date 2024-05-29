@@ -42,8 +42,6 @@ export default function quizRouter(sessionPool: SessionPoolModel) {
         let session: Session | undefined = utils.getSession(sessionPool, sessionId)
 
 
-
-
         if (!session) {
             console.log("Session Not found creating new session");
             session = await utils.createSession()
@@ -81,12 +79,13 @@ export default function quizRouter(sessionPool: SessionPoolModel) {
             if (answer && session.quiz.currentQuestion.options.includes(answer)) {
                 // Antwoord controleren
                 const currentQuestion: QuizQuestion | undefined = session.quiz.currentQuestion
-                if (answer === currentQuestion.name) {
+                if (answer == currentQuestion.name) {
                     await quizService.progressQuiz(session.quiz)
 
                     let question: QuizQuestion
                     question = session.quiz.currentQuestion
                     score = session.quiz.score
+
                     res.render("quiz_question", { question, score })
                 }
                 else { // Fout antwoord dus sessie moet gestopt worden

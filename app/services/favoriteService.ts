@@ -29,25 +29,27 @@ export async function getClubs(clubIdentifiers: number[] | string[]): Promise<Cl
 
 // TODO
 // NOG UITWERKEN
-export async function getLeagueClubs(leagueId: string | number): Promise<ClubDisplayModel[]> {
+export async function getLeagueClubs(leagueId: number | undefined): Promise<ClubDisplayModel[]> {
     let clubPool: ClubModel[]
     let clubs: ClubDisplayModel[] = []
 
-    for (let index = 1; index <= CLUBS_PAGES; index++) {
-        clubPool = await utils.getClubs(index)
+    if (leagueId) {
+        for (let index = 1; index <= CLUBS_PAGES; index++) {
+            clubPool = await utils.getClubs(index)
 
-        for (let index = 0; index < clubPool.length; index++) {
-            const club = clubPool[index];
-            if (club.league === leagueId) {
-                let leagueClub: ClubDisplayModel = {
-                    ...club,
-                    image_url: await utils.getClubImage(club.id)
+            for (let index = 0; index < clubPool.length; index++) {
+                const club = clubPool[index];
+                if (club.league === leagueId) {
+                    let leagueClub: ClubDisplayModel = {
+                        ...club,
+                        image_url: await utils.getClubImage(club.id)
+                    }
+                    clubs.push(leagueClub)
                 }
-                clubs.push(leagueClub)
-                console.log(clubs.length);
-
             }
         }
+    } else {
+        clubs = []
     }
 
     return clubs

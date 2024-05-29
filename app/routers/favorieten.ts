@@ -37,13 +37,15 @@ export default function favorietenRouter(sessionPool: SessionPoolModel) {
 
         let sessionId: string | undefined = req.cookies.quizSessionId
         let answer: string | undefined = req.body.answer
-        console.log(answer);
-        let score: number | undefined
         let session: Session | undefined = utils.getSession(sessionPool, sessionId)
+        let clubs: ClubDisplayModel[]
 
-        let getImage = await utils.getClubImage()
+        if (session && session.user?.favoriteLeague) {
+            clubs = await getLeagueClubs(session.user?.favoriteLeague)
+        } else {
+            clubs = []
+        }
 
-        let clubs: ClubDisplayModel[] = await getLeagueClubs(13)
         res.render("favoriete-league", { clubs })
     });
 
