@@ -8,7 +8,7 @@ import { getClubs, getLeagueClubs } from "../services/favoriteService";
 import UserModel from "../models/UserModel";
 
 
-export default function favorietenRouter() {
+export default function favorietenRouter(sessionPool: SessionPoolModel = {}) {
     const router = express.Router()
 
     router.get("/", async (req, res) => {

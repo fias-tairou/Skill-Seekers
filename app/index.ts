@@ -4,22 +4,16 @@ import express, { Express } from "express";
 import path from "path";
 
 
-import * as dbService from './services/dbService'
-import * as userService from './services/userService'
-import SessionPoolModel from "./models/SessionPoolModel";
 import blacklistRouter from "./routers/blacklist";
 import contactRouter from "./routers/contacts";
 import favorietenRouter from "./routers/favorieten";
 import homeRouter from "./routers/home";
 import indexRouter from "./routers/index";
 import loginRouter from "./routers/login";
-import quizRouter1 from "./routers/quiz";
-import { createClubQuizQuestion } from './services/quizService';
-import { utils } from './services/utils';
-import session from './services/session';
+import quizRouter from "./routers/quiz";
+import * as dbService from './services/dbService';
 import * as middleware from './services/middleware';
-
-
+import session from './services/sessions';
 
 dotenv.config();
 const app: Express = express();
@@ -33,9 +27,9 @@ app.use(express.static(path.join(__dirname, "public")));
 app.set('views', path.join(__dirname, "views"));
 app.set("port", process.env.PORT || 3000);
 app.use(cookieParser())
-app.use(session);
 
 // Globale properties
+app.use(session);
 
 app.use((req, res, next) => {
     res.locals.title = "FIFA";
@@ -45,17 +39,15 @@ app.use((req, res, next) => {
 // Routers
 app.use('/', loginRouter())
 app.use('/', indexRouter())
-app.use('/', middleware.checkIfLoggedIn)
-
+app.use(middleware.checkIfLoggedIn)
 
 app.use('/contact', contactRouter())
 app.use('/contacten', contactRouter())
-app.use('/quiz', quizRouter1())
+app.use('/quiz', quizRouter())
+
 app.use('/blacklist', blacklistRouter())
 app.use('/favorieten', favorietenRouter())
 app.use('/home', homeRouter())
-
-
 
 app.listen(app.get("port"), async () => {
     console.log("Server started on http://localhost:" + app.get('port'));

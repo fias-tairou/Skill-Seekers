@@ -21,6 +21,8 @@ const database = client.db(DB_NAME)
 // Collections
 export const userCollection: Collection<UserModel> = database.collection<UserModel>("users")
 export const leagueCollection: Collection<LeagueModel> = database.collection<LeagueModel>("leagues")
+export const squadsCollection: Collection<LeagueModel> = database.collection<LeagueModel>("leagues")
+export const favoritesCollection: Collection<LeagueModel> = database.collection<LeagueModel>("leagues")
 
 
 async function exit() {

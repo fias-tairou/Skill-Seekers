@@ -143,8 +143,6 @@ export async function progressQuiz(quiz: QuizModel) {
         quiz.currentQuestion = await createClubQuizQuestion()
     }
 
-
-
 }
 export function checkIfAnsweredRight(quiz: QuizModel, answer: string): boolean {
 
@@ -155,5 +153,10 @@ export function checkIfAnsweredRight(quiz: QuizModel, answer: string): boolean {
         return true
     }
     return false
+}
+
+export function resetQuiz(quiz: QuizModel) {
+
+    quiz.score
 }
 

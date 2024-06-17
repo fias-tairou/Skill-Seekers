@@ -1,15 +1,13 @@
 import express from "express";
 import QuizModel from "../models/QuizModel";
-import QuizQuestion from "../models/QuizQuestionModel";
 import Session from "../models/SessionModel";
-import SessionPoolModel from "../models/SessionPoolModel";
-import * as quizService from "../services/quizService";
-import * as dbService from "../services/dbService";
 import * as favoriteService from "../services/favoriteService";
+import * as quizService from "../services/quizService";
 import { utils } from "../services/utils";
-import { log } from "console";
+import UserModel from "../models/UserModel";
+import SessionPoolModel from "../models/SessionPoolModel";
 
-export default function quizRouter1() {
+export default function quizRouter(sessionPool: SessionPoolModel = {}) {
     const router = express.Router()
 
     router.get("/", async (req, res) => {
@@ -61,44 +59,46 @@ export default function quizRouter1() {
             session.quiz = undefined
         }
         res.render("quiz")
-    })
+    });
 
     router.post("/add/", async (req, res) => {
 
+        let id = req.body.id
         let questionIndex: number | undefined = req.session.quiz!.questionIndex
 
+        let user: UserModel = req.session.user!
         if (questionIndex) {
             if (questionIndex % 2 === 0) {
-                favoriteService.addFavoriteLeague(id, session.user)
+                favoriteService.addFavoriteLeague(id, user)
             } else {
-                favoriteService.addFavoriteTeam(id, session.user)
+                favoriteService.addFavoriteTeam(id, user)
             }
         }
-    }
         res.redirect("/quiz")
     })
 
 
-router.post("/blacklist/", async (req, res) => {
-    let sessionId: string | undefined = req.cookies.quizSessionId
-    let session: Session | undefined = utils.getSession(sessionPool, sessionId)
-    let id: number = parseInt(req.body.id)
+    router.post("/blacklist/", async (req, res) => {
+        let sessionId: string | undefined = req.cookies.quizSessionId
+        let session: Session | undefined = utils.getSession(sessionPool, sessionId)
+        let id: number = parseInt(req.body.id)
 
-    if (session && session.user && session.quiz) {
+        if (session && session.user && session.quiz) {
 
-        let quiz: QuizModel = session.quiz
-        let questionIndex: number | undefined = quiz.questionIndex
+            let quiz: QuizModel = session.quiz
+            let questionIndex: number | undefined = quiz.questionIndex
 
-        if (questionIndex) {
-            if (questionIndex % 2 === 0) {
-                favoriteService.addLeagueToBlacklist(id, session.user)
-            } else {
-                favoriteService.addTeamToBlacklist(id, session.user)
+            if (questionIndex) {
+                if (questionIndex % 2 === 0) {
+                    favoriteService.addLeagueToBlacklist(id, session.user)
+                } else {
+                    favoriteService.addTeamToBlacklist(id, session.user)
+                }
             }
         }
-    }
-    res.redirect("/quiz")
-})
+        res.redirect("/quiz")
+    })
 
-return router
+    return router
+
 }

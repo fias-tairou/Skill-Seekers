@@ -2,7 +2,7 @@ import ClubDisplayModel from "../models/ClubDisplayModel";
 import ClubModel from "../models/ClubModel";
 import UserModel from "../models/UserModel";
 import { utils } from "./utils";
-
+import * as dbService from "../services/dbService"
 
 const LEAGUES_PAGES: number = 4
 const CLUBS_PAGES: number = 38
@@ -68,6 +68,8 @@ export function addFavoriteTeam(teamId: number, user: UserModel) {
             removeTeamFromBlacklist(teamId, user)
         }
     }
+
+
 }
 
 export function addFavoriteLeague(leagueId: number, user: UserModel) {
