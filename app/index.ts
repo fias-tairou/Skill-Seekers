@@ -13,10 +13,10 @@ import favorietenRouter from "./routers/favorieten";
 import homeRouter from "./routers/home";
 import indexRouter from "./routers/index";
 import loginRouter from "./routers/login";
-import quizRouter from "./routers/quiz";
+import quizRouter1 from "./routers/quiz";
 import { createClubQuizQuestion } from './services/quizService';
 import { utils } from './services/utils';
-import session from './services/sessions';
+import session from './services/session';
 import * as middleware from './services/middleware';
 
 
@@ -36,7 +36,6 @@ app.use(cookieParser())
 app.use(session);
 
 // Globale properties
-let sessions: SessionPoolModel = {}
 
 app.use((req, res, next) => {
     res.locals.title = "FIFA";
@@ -51,24 +50,11 @@ app.use('/', middleware.checkIfLoggedIn)
 
 app.use('/contact', contactRouter())
 app.use('/contacten', contactRouter())
-app.use('/quiz', quizRouter(sessions))
+app.use('/quiz', quizRouter1())
 app.use('/blacklist', blacklistRouter())
-app.use('/favorieten', favorietenRouter(sessions))
+app.use('/favorieten', favorietenRouter())
 app.use('/home', homeRouter())
 
-
-
-app.get('/test', async (req, res) => {
-
-    let clubImage = await utils.getClubImage(13)
-    let leagueImage = await utils.getLeagueImage(16)
-    let club = await utils.getClubs(15)
-    console.log(club);
-    let x = createClubQuizQuestion()
-    console.log(x);
-
-    res.render('test', { clubImage, leagueImage })
-})
 
 
 app.listen(app.get("port"), async () => {

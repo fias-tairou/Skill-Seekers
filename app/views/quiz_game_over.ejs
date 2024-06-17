@@ -38,7 +38,7 @@
                         <section class="difficulty-section text-center py-1 quiz-card__layer show" data-visible=<%= "showStartSection" %>>
                             <h1 class="quiz-header__title mb-4">Game Over</h1>
                             <h3 class="quiz-header__title mb-4">Score: <%= score%></h3>
-                            <form id="start_quiz_form" method="post" action="/quiz" class="form-group mx-auto" style="visibility: hidden;">
+                            <form id="start_quiz_form" method="get" action="/quiz" class="form-group mx-auto" style="visibility: hidden;">
                                 <label for="difficulty" class="difficulty-section__title mb-4">Kies je niveau:</label>
                                 <select id="difficulty" class="form-control">
                                     <option value="beginner">Beginner</option>

@@ -2,7 +2,6 @@ import ClubModel from "../models/ClubModel"
 import LeagueModel from "../models/LeagueModel";
 import QuizModel from "../models/QuizModel";
 import QuizQuestion from "../models/QuizQuestionModel"
-import Session from "../models/SessionModel"
 import { utils } from "./utils"
 import { v4 as uuidv4 } from 'uuid';
 
@@ -130,6 +129,8 @@ export async function createNewQuiz(): Promise<QuizModel> {
 }
 
 export async function progressQuiz(quiz: QuizModel) {
+    console.log("progressing");
+
     if (!quiz.questionIndex) {
         quiz.questionIndex = 0
     }
@@ -145,3 +146,14 @@ export async function progressQuiz(quiz: QuizModel) {
 
 
 }
+export function checkIfAnsweredRight(quiz: QuizModel, answer: string): boolean {
+
+    console.log("checking");
+
+    if (quiz.currentQuestion?.name === answer) {
+        console.log("Right answer progressing quiz...");
+        return true
+    }
+    return false
+}
+

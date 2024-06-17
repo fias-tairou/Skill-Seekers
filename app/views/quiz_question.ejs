@@ -46,19 +46,19 @@
                             <figure class="text-center mt-2">
                                 <figcaption class="quiz-card__image-wrapper position-relative">
 
-                                    <img class="quiz-card__image rounded-circle shadow-none" src=<%= question.image_url %>
+                                    <img class="quiz-card__image rounded-circle shadow-none" src=<%= currentQuestion.image_url %>
                                     height="150px" width="170px" alt="club embleem" class="img-fluid"
                                     onclick="toggleButtons()">
                                     <section class="quiz-card__like-dislike" id="buttons-container">
                                         <form method="post" action="<%= `/quiz/blacklist` %>">
-                                            <input value="<%= question.answer_id %>" type="hidden" name="id" id="id">
+                                            <input value="<%= currentQuestion.answer_id %>" type="hidden" name="id" id="id">
                                             <button class="quiz-card__dislike-btn" onclick="toggleDislike()">
                                                 <i class="fa-regular fa-thumbs-down"></i>
                                             </button>
                                         </form>
 
                                         <form method="post" action="<%=`/quiz/add` %>">
-                                            <input value="<%= question.answer_id %>" type="hidden" name="id" id="id">
+                                            <input value="<%= currentQuestion.answer_id %>" type="hidden" name="id" id="id">
                                             <button class="quiz-card__like-btn" onclick="toggleLike()">
                                                 <i class="fa-regular fa-thumbs-up"></i>
                                             </button>
@@ -68,13 +68,13 @@
                             </figure>
                             
                             <form class="text-center mt-3 p-3" action="/quiz" method="post">
-                                <% for( option in question.options ) { %>
+                                <% for( option in currentQuestion.options ) { %>
                                     <button type="submit"
                                         class="quiz-card__answer-btn btn btn-clear rounded border border-dark btn-outline-dark w-100 col-10 my-1"
                                         name="answer"
-                                        value='<%= question.options[option] %>' 
+                                        value='<%= currentQuestion.options[option] %>' 
                                         >
-                                        <%= question.options[option] %>
+                                        <%= currentQuestion.options[option] %>
                                     </button>
                                     <% } %>
                             </form>
