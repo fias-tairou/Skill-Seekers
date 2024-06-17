@@ -24,19 +24,19 @@ declare module 'express-session' {
     }
 }
 
-// export default session({
-//     secret: process.env.SESSION_SECRET ?? "my-super-secret-secret",
-//     store: mongoStore,
-//     resave: false,
-//     saveUninitialized: false,
-// });
-
 export default session({
     secret: process.env.SESSION_SECRET ?? "my-super-secret-secret",
-    store: new MemoryStore(),
-    resave: true,
-    saveUninitialized: true,
-    cookie: {
-        maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
-    }
+    store: mongoStore,
+    resave: false,
+    saveUninitialized: false,
 });
+
+// export default session({
+//     secret: process.env.SESSION_SECRET ?? "my-super-secret-secret",
+//     store: new MemoryStore(),
+//     resave: true,
+//     saveUninitialized: true,
+//     cookie: {
+//         maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
+//     }
+// });

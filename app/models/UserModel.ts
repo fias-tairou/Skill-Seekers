@@ -1,7 +1,9 @@
+import { ObjectId } from "mongodb"
+
 export default interface UserModel {
-    _id: string,
-    username: string,
+    _id?: ObjectId | string,
     email: string,
+    password?: string
     favoriteTeams: number[],
     favoriteLeague: number | undefined
     blacklistedTeams: number[],

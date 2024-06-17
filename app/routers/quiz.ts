@@ -1,23 +1,21 @@
-import express, { Router } from "express"
-import * as quizService from "../services/quizService"
-import * as userService from "../services/userService"
+import express from "express";
+import QuizModel from "../models/QuizModel";
 import QuizQuestion from "../models/QuizQuestionModel";
 import Session from "../models/SessionModel";
-import { utils } from "../services/utils";
 import SessionPoolModel from "../models/SessionPoolModel";
-import { log } from "console";
-import QuizQuestionModel from "../models/QuizQuestionModel";
-import QuizModel from "../models/QuizModel";
+import * as quizService from "../services/quizService";
+import * as dbService from "../services/dbService";
+import * as favoriteService from "../services/favoriteService";
+import { utils } from "../services/utils";
 
 export default function quizRouter(sessionPool: SessionPoolModel) {
     const router = express.Router()
 
     router.get("/", (req, res) => {
+
         let sessionId: string | undefined = req.cookies.quizSessionId
         let score: number | undefined
         let session: Session | undefined = utils.getSession(sessionPool, sessionId)
-
-
 
         if (session && session.quiz) {
             let question: QuizQuestion | undefined
@@ -33,7 +31,6 @@ export default function quizRouter(sessionPool: SessionPoolModel) {
 
 
     router.post("/", async (req, res) => {
-
 
         let sessionId: string | undefined = req.cookies.quizSessionId
         let answer: string | undefined = req.body.answer
@@ -130,9 +127,9 @@ export default function quizRouter(sessionPool: SessionPoolModel) {
 
             if (questionIndex) {
                 if (questionIndex % 2 === 0) {
-                    userService.addFavoriteLeague(id, session.user)
+                    favoriteService.addFavoriteLeague(id, session.user)
                 } else {
-                    userService.addFavoriteTeam(id, session.user)
+                    favoriteService.addFavoriteTeam(id, session.user)
                 }
             }
         }
@@ -152,9 +149,9 @@ export default function quizRouter(sessionPool: SessionPoolModel) {
 
             if (questionIndex) {
                 if (questionIndex % 2 === 0) {
-                    userService.addLeagueToBlacklist(id, session.user)
+                    favoriteService.addLeagueToBlacklist(id, session.user)
                 } else {
-                    userService.addTeamToBlacklist(id, session.user)
+                    favoriteService.addTeamToBlacklist(id, session.user)
                 }
             }
         }

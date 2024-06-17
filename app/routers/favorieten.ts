@@ -5,7 +5,7 @@ import { utils } from "../services/utils";
 import LeagueModel from "../models/LeagueModel";
 import ClubDisplayModel from "../models/ClubDisplayModel";
 import { getClubs, getLeagueClubs } from "../services/favoriteService";
-
+import UserModel from "../models/UserModel";
 
 
 export default function favorietenRouter(sessionPool: SessionPoolModel) {
@@ -64,7 +64,7 @@ export default function favorietenRouter(sessionPool: SessionPoolModel) {
 
         let sessionId: string | undefined = req.cookies.quizSessionId
         let session: Session | undefined = utils.getSession(sessionPool, sessionId)
-        let favoriteClubs: number[] | string[]
+        let favoriteClubs: number[] | undefined
         let clubs: ClubDisplayModel[]
         if (session) {
             favoriteClubs = session.user!.favoriteTeams
@@ -74,6 +74,8 @@ export default function favorietenRouter(sessionPool: SessionPoolModel) {
             res.redirect("/")
         }
     });
+
+
 
     return router
 }

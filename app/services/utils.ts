@@ -87,7 +87,6 @@ export let utils = {
             quiz: undefined,
             user: {
                 _id: "100",
-                username: "dummy1",
                 email: "bob@gmail.com",
                 favoriteTeams: [],
                 favoriteLeague: undefined,

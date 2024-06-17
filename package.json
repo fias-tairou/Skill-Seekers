@@ -1,9 +1,11 @@
 {
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "connect-mongodb-session": "^5.0.0",
     "express-session": "^1.18.0"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/connect-mongodb-session": "^2.4.7",
     "@types/express-session": "^1.18.0"
   }
