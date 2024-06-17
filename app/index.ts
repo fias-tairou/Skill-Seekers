@@ -1,22 +1,21 @@
-import express, { Express } from "express";
-import dotenv from "dotenv";
-import path from "path";
 import cookieParser from "cookie-parser";
+import dotenv from "dotenv";
+import express, { Express } from "express";
+import path from "path";
 
-import indexRouter from "./routers/index";
-import contactRouter from "./routers/contacts";
+
+import * as dbService from './services/dbService'
+import SessionPoolModel from "./models/SessionPoolModel";
 import blacklistRouter from "./routers/blacklist";
+import contactRouter from "./routers/contacts";
 import favorietenRouter from "./routers/favorieten";
 import homeRouter from "./routers/home";
+import indexRouter from "./routers/index";
 import loginRouter from "./routers/login";
 import quizRouter from "./routers/quiz";
 import registerRouter from "./routers/register";
-import { utils } from './services/utils'
-import { createClubQuizQuestion } from './services/quizService'
-import Session from "./models/SessionModel";
-import UserModel from "./models/UserModel";
-import { v4 as uuidv4 } from 'uuid';
-import SessionPoolModel from "./models/SessionPoolModel";
+import { createClubQuizQuestion } from './services/quizService';
+import { utils } from './services/utils';
 
 
 dotenv.config();
@@ -67,6 +66,6 @@ app.get('/test', async (req, res) => {
 
 
 app.listen(app.get("port"), async () => {
-
     console.log("Server started on http://localhost:" + app.get('port'));
+    dbService.connect()
 });

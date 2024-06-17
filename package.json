@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "connect-mongodb-session": "^5.0.0",
+    "express-session": "^1.18.0"
+  },
+  "devDependencies": {
+    "@types/connect-mongodb-session": "^2.4.7",
+    "@types/express-session": "^1.18.0"
+  }
+}
