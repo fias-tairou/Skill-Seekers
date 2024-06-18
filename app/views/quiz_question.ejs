@@ -50,7 +50,7 @@
                                     height="150px" width="170px" alt="club embleem" class="img-fluid"
                                     onclick="toggleButtons()">
                                     <section class="quiz-card__like-dislike" id="buttons-container">
-                                        <form method="post" action="<%= `/quiz/blacklist` %>">
+                                        <form method="get" action="<%= `/quiz/blacklist` %>">
                                             <input value="<%= currentQuestion.answer_id %>" type="hidden" name="id" id="id">
                                             <button class="quiz-card__dislike-btn" onclick="toggleDislike()">
                                                 <i class="fa-regular fa-thumbs-down"></i>
@@ -84,10 +84,10 @@
                         <section class="difficulty-section text-center py-1 quiz-card__layer">
                             <h1 class="quiz-header__title mb-4">Geef de reden in</h1>
                             <form action="">
-                                <div class="form-group">
+                                <section class="form-group">
                                     <label for="reason-textarea"></label>
                                     <textarea class="form-control" id="reason-textarea" rows="3"></textarea>
-                                </div>
+                                </section>
                             </form>
                             <button id="reason-btn" class="btn btn-primary btn-lg mt-3">Bevestig</button>
                         </section>

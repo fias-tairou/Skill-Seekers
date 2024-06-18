@@ -1,10 +1,11 @@
-import { Collection, MongoClient } from "mongodb";
+import { Collection, MongoClient, ObjectId } from "mongodb";
 import dotenv from "dotenv";
 import UserModel from "../models/UserModel";
 import LeagueModel from "../models/LeagueModel";
 import QuizModel from "../models/QuizModel";
 import bcrypt from "bcrypt"
 import { log } from "console";
+import { UserInformation } from "../models/models";
 
 dotenv.config()
 
@@ -21,8 +22,8 @@ const database = client.db(DB_NAME)
 // Collections
 export const userCollection: Collection<UserModel> = database.collection<UserModel>("users")
 export const leagueCollection: Collection<LeagueModel> = database.collection<LeagueModel>("leagues")
-export const squadsCollection: Collection<LeagueModel> = database.collection<LeagueModel>("leagues")
-export const favoritesCollection: Collection<LeagueModel> = database.collection<LeagueModel>("leagues")
+export const squadsCollection: Collection<LeagueModel> = database.collection<LeagueModel>("squads")
+export const userInfoCollection: Collection<UserInformation> = database.collection<UserInformation>("userInfo")
 
 
 async function exit() {
@@ -58,16 +59,34 @@ export async function createInitialUser() {
     let email: string | undefined = process.env.ADMIN_EMAIL || "user1@gmail.com";
     let password: string | undefined = process.env.ADMIN_PASSWORD || "toor";
 
-    await userCollection.insertOne({
+    let result = await userCollection.insertOne({
         email: email,
         password: await bcrypt.hash(password, SALT_ROUNDS),
-        favoriteTeams: [],
-        favoriteLeague: undefined,
-        blacklistedTeams: [],
-        BlacklistedLeagues: [],
-        currentHighscore: 0
     });
 
+    let userInfo: UserInformation = {
+        userId: new ObjectId(result.insertedId),
+        favoriteTeams: [],
+        favoriteLeague: undefined,
+        blacklist: [],
+        currentHighscore: 0
+    }
+    await userInfoCollection.insertOne(userInfo)
     console.log("done");
 }
 
+export async function updatteUserInfo(userId: ObjectId, info: Object) {
+    // await dbService.userInfoCollection.findOneAndUpdate(
+    //     { userId: userId },
+    //     { $set: info },
+    //     { returnDocument: "after" });
+    let result = await userInfoCollection.updateOne({ userId: userId }, { $set: { ...info } });
+
+    return result
+}
+
+
+export async function getUserInfo(userId: ObjectId): Promise<UserInformation | null> {
+
+    return await userInfoCollection.findOne({ userId: userId });
+}

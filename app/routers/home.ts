@@ -6,9 +6,8 @@ export default function homeRouter() {
 
 
 
-    router.get("/", (req, res) => {
-        let users = dbService.userCollection.find({}).toArray()
-        console.log(users);
+    router.get("/", async (req, res) => {
+        let users = await dbService.userCollection.find({}).toArray()
         res.render("home")
     });
 

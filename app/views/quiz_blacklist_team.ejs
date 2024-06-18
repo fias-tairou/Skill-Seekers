@@ -34,7 +34,7 @@
                     <header class="quiz-card__header card-header text-center bg-light">Trivia</header>
                     <article class="quiz-card__body card-body p-1">
                         <!-- LAYER -->
-                        <section class="quiz-card__layer show">
+                        <section class="quiz-card__layer ">
                             <ul class="list-group border-0 px-0">
                                 <li class="list-group-item">
                                     <h5 class="quiz-card__title text-strong py-1">Welke ploeg is dit?</h5>
@@ -48,36 +48,56 @@
                             <figure class="text-center mt-2">
                                 <figcaption class="quiz-card__image-wrapper position-relative">
 
-                                    <img class="quiz-card__image rounded-circle shadow-none" src=<%=question.image_url
-                                        %>
+                                    <img class="quiz-card__image rounded-circle shadow-none"
+                                        src=<%=currentQuestion.image_url %>
                                     height="150px" width="170px" alt="club embleem" class="img-fluid"
                                     onclick="toggleButtons()">
                                     <section class="quiz-card__like-dislike" id="buttons-container">
-                                        
+                                        <form method="post" action="<%= `/quiz/blacklist` %>">
+                                            <input value="<%= currentQuestion.answer_id %>" type="hidden" name="id"
+                                                id="id">
+                                            <button class="quiz-card__dislike-btn" onclick="toggleDislike()">
+                                                <i class="fa-regular fa-thumbs-down"></i>
+                                            </button>
+                                        </form>
+
+                                        <form method="post" action="<%=`/quiz/add` %>">
+                                            <input value="<%= currentQuestion.answer_id %>" type="hidden" name="id"
+                                                id="id">
+                                            <button class="quiz-card__like-btn" onclick="toggleLike()">
+                                                <i class="fa-regular fa-thumbs-up"></i>
+                                            </button>
+                                        </form>
                                     </section>
                                 </figcaption>
                             </figure>
+
                             <form class="text-center mt-3 p-3" action="/quiz" method="post">
-                                <% for( option in question.options ) { %>
+                                <% for( option in currentQuestion.options ) { %>
                                     <button type="submit"
                                         class="quiz-card__answer-btn btn btn-clear rounded border border-dark btn-outline-dark w-100 col-10 my-1"
-                                        name="answer" value='<%= question.options[option] %>'>
-                                        <%= question.options[option] %>
+                                        name="answer" value='<%= currentQuestion.options[option] %>'>
+                                        <%= currentQuestion.options[option] %>
                                     </button>
                                     <% } %>
                             </form>
                         </section>
 
                         <!-- LAYER -->
-                        <section class="difficulty-section text-center py-1 quiz-card__layer">
+                        <section class="difficulty-section text-center py-1 quiz-card__layer show">
                             <h1 class="quiz-header__title mb-4">Geef de reden in</h1>
-                            <form action="">
+                            <form method="post" action="/quiz/blacklist">
+
+                                <input value="<%= currentQuestion.answer_id %>" type="hidden" name="id" id="id">
+
                                 <section class="form-group">
                                     <label for="reason-textarea"></label>
-                                    <textarea class="form-control" id="reason-textarea" rows="3"></textarea>
+                                    <textarea name="reason" class="form-control" id="reason-textarea"
+                                        rows="3"></textarea>
                                 </section>
+                                <button type="submit" id="reason-btn"
+                                    class="btn btn-primary btn-lg mt-3">Bevestig</button>
                             </form>
-                            <button id="reason-btn" class="btn btn-primary btn-lg mt-3">Bevestig</button>
                         </section>
                     </article>
                 </section>
@@ -89,6 +109,7 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
         </script>
     <script src="./scripts/quiz.js"></script>
+
 </body>
 
 </html>

@@ -3,4 +3,5 @@ export default interface ClubDisplayModel {
     name: string,
     league: number | string
     image_url: string | undefined
+    reason?: string
 }

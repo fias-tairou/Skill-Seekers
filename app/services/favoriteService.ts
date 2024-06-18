@@ -3,11 +3,11 @@ import ClubModel from "../models/ClubModel";
 import UserModel from "../models/UserModel";
 import { utils } from "./utils";
 import * as dbService from "../services/dbService"
+import { ObjectId } from "mongodb";
+import { BlacklistedItem, UserInformation } from "../models/models";
 
 const LEAGUES_PAGES: number = 4
 const CLUBS_PAGES: number = 38
-
-
 
 export async function getClubs(clubIdentifiers: number[] | undefined): Promise<ClubDisplayModel[]> {
     let clubs: ClubDisplayModel[] = []
@@ -28,6 +28,27 @@ export async function getClubs(clubIdentifiers: number[] | undefined): Promise<C
     return clubs
 }
 
+
+export async function getBlacklistedClubs(blacklist: BlacklistedItem[] | undefined): Promise<ClubDisplayModel[]> {
+    let clubs: ClubDisplayModel[] = []
+
+    for (let index = 0; index < blacklist!.length; index++) {
+        const element = blacklist![index];
+
+        const clubInfo: ClubModel = await utils.getClub(element.id)
+
+        let club: ClubDisplayModel = {
+            ...clubInfo,
+            image_url: await utils.getClubImage(element.id),
+            reason: element.reason
+        }
+
+        clubs.push(club)
+    }
+    return clubs
+}
+
+
 // TODO
 // NOG UITWERKEN
 export async function getLeagueClubs(leagueId: number | undefined): Promise<ClubDisplayModel[]> {
@@ -40,7 +61,10 @@ export async function getLeagueClubs(leagueId: number | undefined): Promise<Club
 
             for (let index = 0; index < clubPool.length; index++) {
                 const club = clubPool[index];
-                if (club.league === leagueId) {
+
+
+                if (club.league == leagueId) {
+
                     let leagueClub: ClubDisplayModel = {
                         ...club,
                         image_url: await utils.getClubImage(club.id)
@@ -49,79 +73,85 @@ export async function getLeagueClubs(leagueId: number | undefined): Promise<Club
                 }
             }
         }
+
     } else {
         clubs = []
     }
-
-
 
     return clubs
 }
 
 
 
-export function addFavoriteTeam(teamId: number, user: UserModel) {
-
-    if (user && user.favoriteTeams) {
-        if (!user.favoriteTeams.includes(teamId)) {
-            user.favoriteTeams.push(teamId)
-            removeTeamFromBlacklist(teamId, user)
-        }
-    }
-
-
-}
-
-export function addFavoriteLeague(leagueId: number, user: UserModel) {
+export async function addFavoriteTeam(teamId: number, user: UserModel) {
     if (user) {
-        user.favoriteLeague = leagueId
-        removeLeagueFromBlacklist(leagueId, user)
-    }
-}
-
-export function addTeamToBlacklist(teamId: number, user: UserModel) {
-    if (!user.blacklistedTeams.includes(teamId)) {
-        user.blacklistedTeams.push(teamId)
-        removeFavoriteTeam(teamId, user)
-    }
-}
-
-export function addLeagueToBlacklist(leagueId: number, user: UserModel) {
-    if (!user.BlacklistedLeagues.includes(leagueId)) {
-        user.BlacklistedLeagues.push(leagueId)
-        removeFavoriteLeague(leagueId, user)
-    }
-}
-
-
-export function removeFavoriteTeam(teamId: number, user: UserModel) {
-    user.favoriteTeams = user.favoriteTeams.filter((id) => {
-        if (id != teamId) {
-            return id
+        let userId: ObjectId = user._id!
+        let userInformation: UserInformation = {
+            userId: userId
         }
-    })
-}
-
-export function removeFavoriteLeague(leagueId: number, user: UserModel) {
-
-    if (user.favoriteLeague === leagueId) {
-        user.favoriteLeague = undefined
+        await dbService.userInfoCollection.updateOne({ userId: userId }, { $addToSet: { favoriteTeams: teamId }, $pull: { blacklist: { id: teamId } } });
     }
 }
 
-export function removeTeamFromBlacklist(teamId: number, user: UserModel) {
-    user.blacklistedTeams = user.blacklistedTeams.filter((id) => {
-        if (id != teamId) {
-            return id
+export async function addFavoriteLeague(leagueId: number, user: UserModel) {
+
+    if (user) {
+        let userId: ObjectId = user._id!
+        let userInformation: UserInformation = {
+            favoriteLeague: leagueId,
+            userId: userId
         }
-    })
+        await dbService.userInfoCollection.updateOne({ userId: userId }, { $set: { ...userInformation } });
+    }
 }
 
-export function removeLeagueFromBlacklist(leagueId: number, user: UserModel) {
-    user.BlacklistedLeagues = user.BlacklistedLeagues.filter((id) => {
-        if (id != leagueId) {
-            return id
+export async function addTeamToBlacklist(teamId: number, user: UserModel, reason: string) {
+    if (user) {
+        let userId: ObjectId = user._id!
+        let userInformation: UserInformation = {
+            userId: userId
         }
-    })
+
+        let blacklistedItem: BlacklistedItem = { id: teamId, reason: reason }
+
+        await dbService.userInfoCollection.updateOne({ userId: userId }, { $addToSet: { blacklist: blacklistedItem }, $pullAll: { favoriteTeams: [teamId] } });
+    }
 }
 
+export async function removeFavoriteTeam(teamId: number, user: UserModel) {
+
+    if (user) {
+        let userId: ObjectId = user._id!
+        let userInformation: UserInformation = {
+            userId: userId,
+        }
+
+        await dbService.userInfoCollection.updateOne({ userId: userId }, { $pullAll: { favoriteTeams: [teamId] } });
+    }
+}
+
+export async function removeFavoriteLeague(user: UserModel) {
+
+    if (user) {
+        let userId: ObjectId = user._id!
+        let userInformation: UserInformation = {
+            userId: userId,
+            favoriteLeague: undefined
+        }
+
+        await dbService.userInfoCollection.updateOne({ userId: userId }, { $set: { ...userInformation } });
+    }
+}
+
+export async function removeTeamFromBlacklist(teamId: number, user: UserModel) {
+    if (user) {
+        let userId: ObjectId = user._id!
+        let userInformation: UserInformation = {
+            userId: userId,
+        }
+
+        let blacklistedItem: BlacklistedItem = { id: teamId, }
+
+        await dbService.userInfoCollection.updateOne({ userId: userId }, { $pullAll: { blacklist: [blacklistedItem] } });
+    }
+}

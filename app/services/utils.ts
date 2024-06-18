@@ -29,7 +29,6 @@ let getImage = async (url: string) => {
     }).then((response) => {
         return response.blob()
     }).then(async (blob) => {
-        // console.log(response.blob());
         let buffer = Buffer.from(await blob.arrayBuffer())
         return "data:" + blob.type + ';base64,' + buffer.toString('base64');
     })
@@ -63,7 +62,7 @@ export let utils = {
         return data.items
     },
 
-    getLeague: async (id: number | string) => {
+    getLeague: async (id: number | undefined) => {
         const url = `https://futdb.app/api/leagues/${id}`
         let data = await fetchItem(url)
         return data.league
@@ -79,35 +78,6 @@ export let utils = {
         const leagueEndpoint = "https://futdb.app/api/leagues"
         const endpoint = `${leagueEndpoint}/${leagueId}/image`
         return getImage(endpoint)
-    },
-
-    createSession: (): Session => {
-        let session: Session = {
-            id: uuidv4(),
-            quiz: undefined,
-            user: {
-                _id: "100",
-                email: "bob@gmail.com",
-                favoriteTeams: [],
-                favoriteLeague: undefined,
-                blacklistedTeams: [],
-                BlacklistedLeagues: [],
-                currentHighscore: 0
-            }
-        }
-        return session
-    },
-    getSession: (sessionPool: SessionPoolModel, sessionId: string | undefined): Session | undefined => {
-        if (sessionId) {
-            return sessionPool[sessionId]
-        } else {
-            return undefined
-        }
-    },
-
-    addSession: (sessionPool: SessionPoolModel, session: Session) => {
-        let id: string = session.id
-        sessionPool[id] = session
     },
 
     shuffleArray: (array: any) => {

@@ -4,6 +4,9 @@ import QuizModel from "../models/QuizModel";
 import QuizQuestion from "../models/QuizQuestionModel"
 import { utils } from "./utils"
 import { v4 as uuidv4 } from 'uuid';
+import * as dbService from "./dbService"
+import { ObjectId } from "mongodb";
+import { UserInformation } from "../models/models";
 
 const CLUBS_ENDPOINT: string = '/api/clubs'
 const CLUBS_PAGES: number = 38
@@ -77,15 +80,15 @@ export async function createClubQuizQuestion(): Promise<QuizQuestion> {
     // Recursief uitvoeren tot er een bas64 word gegenereeerd die geen "application/json" bevat
     if (question.image_url.includes("application/json")) {
         return createClubQuizQuestion()
-    } else {
-        return question
     }
+    return question
+
 }
 
 
 export async function createLeagueQuizQuestion(): Promise<QuizQuestion> {
 
-    let page: number = utils.randomRange(1, LEAGUES_PAGES)
+    let page: number = utils.randomRange(1, LEAGUES_PAGES - 1)
     let leaguePool: LeagueModel[] = await utils.getLeagues(page)
     let question: QuizQuestion | undefined = {
         answer_id: "",
@@ -109,12 +112,14 @@ export async function createLeagueQuizQuestion(): Promise<QuizQuestion> {
 
     // Recursief uitvoeren tot er een bas64 word gegenereeerd die geen "application/json" bevat
     if (question.image_url.includes("application/json")) {
-        return createClubQuizQuestion()
-    } else {
+        console.log("inValid image");
 
-        return question
+        return createClubQuizQuestion()
     }
 
+    console.log("Valid image");
+
+    return question
 
 }
 
@@ -129,7 +134,6 @@ export async function createNewQuiz(): Promise<QuizModel> {
 }
 
 export async function progressQuiz(quiz: QuizModel) {
-    console.log("progressing");
 
     if (!quiz.questionIndex) {
         quiz.questionIndex = 0
@@ -137,11 +141,19 @@ export async function progressQuiz(quiz: QuizModel) {
     quiz.questionIndex += 1
     quiz.score += 10
 
+    console.log("progressing quiz");
     if (quiz.questionIndex % 2 == 0) {
+        console.log("creating league question");
+
         quiz.currentQuestion = await createLeagueQuizQuestion()
     } else {
+        console.log("creating club question");
+
         quiz.currentQuestion = await createClubQuizQuestion()
     }
+
+    console.log("done");
+
 
 }
 export function checkIfAnsweredRight(quiz: QuizModel, answer: string): boolean {
@@ -155,8 +167,29 @@ export function checkIfAnsweredRight(quiz: QuizModel, answer: string): boolean {
     return false
 }
 
-export function resetQuiz(quiz: QuizModel) {
+export async function resetQuiz(quiz: QuizModel) {
 
-    quiz.score
+    quiz = {
+        currentQuestion: await createClubQuizQuestion(),
+        score: 0,
+        questionIndex: 1
+    }
+    quiz.score = 0
 }
 
+
+export async function isHighscore(userId: ObjectId, score: number): Promise<boolean> {
+
+    let userInformation: UserInformation | null = await dbService.userInfoCollection.findOne({ userId: userId })
+
+    if (userInformation) {
+
+        let currentHighscore: number = userInformation.currentHighscore || 0
+        if (currentHighscore < score) {
+            return true
+        }
+    }
+
+
+    return false
+}

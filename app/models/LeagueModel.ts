@@ -4,3 +4,4 @@ export default interface LeagueModel {
     nationId: string,
     gender: string
 }
+
