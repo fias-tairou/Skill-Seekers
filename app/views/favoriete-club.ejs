@@ -14,13 +14,12 @@
          <% for( club of clubs) { %>
             <figure class="figure-fifa">
                <figcaption>
-                  <%= club.name %> <button id="delete"></a><img class="verwijderKnop" src="/assets/VerwijderKnop.webp"
-                           alt="verwijderKnop">
+                  <%= club.name %> <a href="<%= `/favorieten/clubs/verwijder/${club.id}` %>">
+                        <img class="verwijderKnop" src="/assets/VerwijderKnop.webp" alt="verwijderKnop">
+                     </a>
                </figcaption>
-
-               <a href=<%="/favorieten/clubs/" +club.id %>>
-                  <img src=<%=club.image_url %> height="170px" ="foto niet beschikbaar" />
-               </a>
+               <!-- /favorieten/clubs/" +club.id  -->
+               <img src=<%=club.image_url %> height="170px" alt="foto niet beschikbaar" />
             </figure>
             <% } %>
 

@@ -126,7 +126,7 @@ export async function removeFavoriteTeam(teamId: number, user: UserModel) {
             userId: userId,
         }
 
-        await dbService.userInfoCollection.updateOne({ userId: userId }, { $pullAll: { favoriteTeams: [teamId] } });
+        console.log(await dbService.userInfoCollection.updateOne({ userId: userId }, { $pull: { favoriteTeams: [teamId] } }));
     }
 }
 

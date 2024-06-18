@@ -3,12 +3,14 @@ import ClubDisplayModel from "../models/ClubDisplayModel";
 import LeagueModel from "../models/LeagueModel";
 import SessionPoolModel from "../models/SessionPoolModel";
 import { getClubs, getLeagueClubs } from "../services/favoriteService";
+import * as favoriteService from "../services/favoriteService";
 import * as userService from "../services/userService";
 import { utils } from "../services/utils";
 
 import { ObjectId } from "mongodb";
 import UserModel from "../models/UserModel";
 import { UserInformation } from "../models/models";
+import { request } from "http";
 
 
 
@@ -73,6 +75,29 @@ export default function favorietenRouter(sessionPool: SessionPoolModel = {}) {
         res.render("favoriete-club", { clubs })
     });
 
+
+    router.get("/clubs/verwijder/:id", async (req, res) => {
+        let id = parseInt(req.params.id)
+
+        console.log(req.params);
+        console.log(id);
+
+
+        let user: UserModel = req.session.user!
+        let userId: ObjectId = user._id!
+        let clubs: ClubDisplayModel[] = []
+
+        if (id) {
+            await favoriteService.removeFavoriteTeam(id, user)
+        }
+
+        let userInformation: UserInformation | null = await userService.getUserInfo(userId)
+        if (userInformation) {
+            const favoriteClubs = userInformation.favoriteTeams
+            clubs = await getClubs(favoriteClubs)
+        }
+        res.render("favoriete-club", { clubs })
+    });
 
 
     return router
