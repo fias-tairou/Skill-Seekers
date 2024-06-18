@@ -152,10 +152,11 @@ body {
     height: 50px;
     font-size: 24px;
     background: transparent;
-    border: none;
+    border: #002864;
+    color: black;
     cursor: pointer;
     position: absolute;
-    transform: translateY(-10%);
+    transform: translateY(-150%);
 }
 
 
@@ -166,13 +167,44 @@ body {
 }
 
 .quiz-card__like-btn {
-    right: 60px;
+    right: 120px;
 }
 
 .quiz-card__dislike-btn {
-    left: 60px;
+    left: 120px;
 }
 
+
+@media only screen and (max-width: 375px) {
+
+    .quiz-card__like-btn,
+    .quiz-card__dislike-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+        background: transparent;
+        border: #002864;
+        color: black;
+        cursor: pointer;
+        position: absolute;
+        transform: translateY(-110%);
+    }
+
+    .quiz-card__like-btn {
+        right: 35px;
+    }
+
+    .quiz-card__dislike-btn {
+        left: 35px;
+    }
+}
+
+
+/* Hoem Page */
+
+.home__option-card {}
+
+@media only screen and (max-width: 375px) {}
 
 
 /*Headers */
@@ -608,6 +640,7 @@ footer {
     position: fixed;
     left: 0;
     bottom: 0;
+
 
 }
 

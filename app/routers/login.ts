@@ -64,6 +64,19 @@ export default function loginRouter() {
     });
 
 
+    router.get("/logout", async (req, res) => {
+
+        req.session.destroy(() => {
+            console.log("user logged out succesfully");
+        })
+        let props = {
+            title: "Log In",
+            error: false
+        }
+        res.render("login", { ...props })
+    });
+
+
     router.get("/reset", (req, res) => {
         res.render("password-reset")
     });
